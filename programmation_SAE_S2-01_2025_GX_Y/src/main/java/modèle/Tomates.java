@@ -1,5 +1,6 @@
 package modèle;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -100,8 +101,13 @@ public class Tomates {
      */
     private static List<Tomate> tomatesDeTypeAvecListe(TypeTomate typeTomate,
             List<Tomate> tomates) {
-        // A COMPLETER
-        return null;
+    	List<Tomate> tomatesDeType = new ArrayList<Tomate>();
+        for (Tomate tomate : tomates) {
+        	if(tomate.getType() == typeTomate) {
+        		tomatesDeType.add(tomate);
+        	}
+        }
+        return tomatesDeType;
     }
 
     /**
@@ -123,8 +129,13 @@ public class Tomates {
      */
     private static List<Tomate> tomatesDeCouleurAvecListe(Couleur couleur,
             List<Tomate> tomates) {
-        // A COMPLETER
-        return null;
+    	List<Tomate> tomatesDeCouleur = new ArrayList<Tomate>();
+        for (Tomate tomate : tomates) {
+        	if(tomate.getCouleur() == couleur) {
+        		tomatesDeCouleur.add(tomate);
+        	}
+        }
+        return tomatesDeCouleur;
     }
 
     /**
@@ -136,8 +147,13 @@ public class Tomates {
      */
     public List<Tomate> tomatesDetypeDeCouleur(TypeTomate typeTomate,
             Couleur couleur) {
-        // A COMPLETER
-        return null;
+    	List<Tomate> tomatesDeTypeDeCouleur = new ArrayList<Tomate>();
+    	for (Tomate tomate : this.tomates) {
+    		if (this.tomatesDeCouleur(couleur).contains(tomate) && this.tomatesDeType(typeTomate).contains(tomate)){
+    			tomatesDeTypeDeCouleur.add(tomate);
+    		}
+    	}
+        return tomatesDeTypeDeCouleur;
     }
 
     /**
