@@ -9,7 +9,7 @@ public enum Couleur {
      * Couleur bleue.
      */
     BLEU("Bleu"),
-5445645fafafaf
+    couleur bleu
     /**
      * Couleur verte.
      */
