@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,9 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import modèle.Tomate;
-import sun.swing.DefaultLookup;
 
 public class TomatesListPainter extends JLabel implements ListCellRenderer<Object> {    
     
@@ -29,26 +28,9 @@ public class TomatesListPainter extends JLabel implements ListCellRenderer<Objec
     protected static Border noFocusBorder = DEFAULT_NO_FOCUS_BORDER;
     
 	public TomatesListPainter() {
-        setBorder(getNoFocusBorder());
+        setBorder(SAFE_NO_FOCUS_BORDER);
 		setOpaque(true);
 	}
-	
-	//Fonction provenant de la class DefaultListCellRenderer qui s'occupe
-	//de gerer l'affichage par defaut d'une liste
-    private Border getNoFocusBorder() {
-        Border border = DefaultLookup.getBorder(this, ui, "List.cellNoFocusBorder");
-        if (System.getSecurityManager() != null) {
-            if (border != null) return border;
-            return SAFE_NO_FOCUS_BORDER;
-        } else {
-            if (border != null &&
-                    (noFocusBorder == null ||
-                    noFocusBorder == DEFAULT_NO_FOCUS_BORDER)) {
-                return border;
-            }
-            return noFocusBorder;
-        }
-    }
 
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,boolean cellHasFocus) {
@@ -93,7 +75,6 @@ public class TomatesListPainter extends JLabel implements ListCellRenderer<Objec
 		//Code provenant de la class DefaultListCellRenderer qui s'occupe
 		//de gerer l'affichage par defaut d'une liste, modifier pour la 
 		//compatibilité avec notre code 
-		
 		//Gestion de la selection 
 		//Gestion des couleurs lors de la selection
 		if (isSelected) {
@@ -105,17 +86,17 @@ public class TomatesListPainter extends JLabel implements ListCellRenderer<Objec
 			 insidePanel.setForeground(list.getForeground());
 		 }
 		 //Gestion de la bordure lors de la selection
-		 Border border = null;
+		 Border border;
 		 if (cellHasFocus) {
 			 if (isSelected) {
-				 border = DefaultLookup.getBorder(this, ui, "List.focusSelectedCellHighlightBorder");
+				 border = new LineBorder(new Color(70, 120, 255), 1);
 			 }
-			 if (border == null) {
-				 border = DefaultLookup.getBorder(this, ui, "List.focusCellHighlightBorder");
+			 else {
+				 border = BorderFactory.createDashedBorder(Color.GRAY);
 			 }
 		 } 
 		 else {
-			 border = getNoFocusBorder();
+			 border = new EmptyBorder(2, 2, 2, 2);
 		 }
 		 panel.setBorder(border);
 	       
