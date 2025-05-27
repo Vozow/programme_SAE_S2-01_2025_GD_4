@@ -101,12 +101,17 @@ public class Tomates {
      */
     private static List<Tomate> tomatesDeTypeAvecListe(TypeTomate typeTomate,
             List<Tomate> tomates) {
+    	//Crée la liste qui sera retourner a la fin de la fonction
     	List<Tomate> tomatesDeType = new ArrayList<Tomate>();
+    	//Boucle qui parcours toutes les tomates existantes
         for (Tomate tomate : tomates) {
+    		//Si la tomate correspond au type
         	if(tomate.getType() == typeTomate) {
+    			//ajoute la tomate à la liste crée
         		tomatesDeType.add(tomate);
         	}
         }
+    	//retourne la liste crée
         return tomatesDeType;
     }
 
@@ -129,12 +134,17 @@ public class Tomates {
      */
     private static List<Tomate> tomatesDeCouleurAvecListe(Couleur couleur,
             List<Tomate> tomates) {
+    	//Crée la liste qui sera retourner a la fin de la fonction
     	List<Tomate> tomatesDeCouleur = new ArrayList<Tomate>();
+    	//Boucle qui parcours toutes les tomates existantes
         for (Tomate tomate : tomates) {
+    		//Si la tomate correspond à la couleur
         	if(tomate.getCouleur() == couleur) {
+    			//ajoute la tomate à la liste crée
         		tomatesDeCouleur.add(tomate);
         	}
         }
+    	//retourne la liste crée
         return tomatesDeCouleur;
     }
 
@@ -147,12 +157,17 @@ public class Tomates {
      */
     public List<Tomate> tomatesDetypeDeCouleur(TypeTomate typeTomate,
             Couleur couleur) {
+    	//Crée la liste qui sera retourner a la fin de la fonction
     	List<Tomate> tomatesDeTypeDeCouleur = new ArrayList<Tomate>();
+    	//Boucle qui parcours toutes les tomates existantes
     	for (Tomate tomate : this.tomates) {
+    		//Si la tomate correspond au type et à la couleur
     		if (this.tomatesDeCouleur(couleur).contains(tomate) && this.tomatesDeType(typeTomate).contains(tomate)){
+    			//ajoute la tomate à la liste crée
     			tomatesDeTypeDeCouleur.add(tomate);
     		}
     	}
+    	//retourne la liste crée
         return tomatesDeTypeDeCouleur;
     }
 
