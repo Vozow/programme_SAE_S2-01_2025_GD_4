@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -36,7 +37,7 @@ public class FenetrePrincipal extends JFrame {
 					Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("./src/main/resources/data/tomates.json");
 					//Lancement de la fenetre
 					FenetrePrincipal frame = new FenetrePrincipal(tomates);
-					frame.setVisible(true);
+						frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -65,9 +66,10 @@ public class FenetrePrincipal extends JFrame {
 		
 		//Création du panel de tête
 		JPanel headpanel = new JPanel();
-		contentPane.add(headpanel, BorderLayout.NORTH);
+		contentPane.add(headpanel, BorderLayout.NORTH);		
 		headpanel.setLayout(new BorderLayout(0, 0));
-		
+		headpanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
 		//Création du titre
 		JLabel lblTitle = new JLabel("O'Tomates");
 		lblTitle.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
@@ -93,7 +95,9 @@ public class FenetrePrincipal extends JFrame {
 		JList<Tomate> listTomates = new JList<Tomate>(this.modeleList);
 		listTomates.setFont(new Font("Ebrima", Font.PLAIN, 15));
 		ListScrollPane.setViewportView(listTomates);
+		//
 		listTomates.setModel(this.modeleList);
+		
 		listTomates.setCellRenderer(new TomatesListPainter());
 		
 		JPanel bottomPanel = new JPanel();
