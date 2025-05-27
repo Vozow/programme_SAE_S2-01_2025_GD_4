@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.ImageIcon;
 
-public class Fenetre_produit extends JFrame {
+public class FenetreProduit extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -29,7 +29,7 @@ public class Fenetre_produit extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Fenetre_produit frame = new Fenetre_produit();
+					FenetreProduit frame = new FenetreProduit();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class Fenetre_produit extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Fenetre_produit() {
+	public FenetreProduit() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
