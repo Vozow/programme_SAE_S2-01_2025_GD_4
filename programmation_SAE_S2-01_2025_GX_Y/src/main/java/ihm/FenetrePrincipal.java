@@ -12,6 +12,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JScrollPane;
+
 import javax.swing.JList;
 import modèle.*;
 
@@ -22,7 +23,7 @@ public class FenetrePrincipal extends JFrame {
 	private Tomates tomates;
 	
 	private JPanel contentPane;
-	private DefaultListModel<String> modeleList;
+	private DefaultListModel<Tomate> modeleList;
 
 	/**
 	 * Launch the application.
@@ -54,7 +55,7 @@ public class FenetrePrincipal extends JFrame {
 		this.tomates = tomates;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 700, 900);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -87,13 +88,13 @@ public class FenetrePrincipal extends JFrame {
 		
 
 		//Création du modèle de la liste listTomates
-		this.modeleList = new DefaultListModel<String>();
+		this.modeleList = new DefaultListModel<Tomate>();
 		//Création de la listTomates
-		JList<String> listTomates = new JList<String>(this.modeleList);
+		JList<Tomate> listTomates = new JList<Tomate>(this.modeleList);
 		listTomates.setFont(new Font("Ebrima", Font.PLAIN, 15));
 		ListScrollPane.setViewportView(listTomates);
 		listTomates.setModel(this.modeleList);
-
+		listTomates.setCellRenderer(new TomatesListPainter());
 		
 		JPanel bottomPanel = new JPanel();
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
@@ -112,7 +113,7 @@ public class FenetrePrincipal extends JFrame {
 	private void actualiserListTomates() {
 		this.modeleList.setSize(0);
 		for(Tomate tomate : this.tomates.getTomates()) {
-			this.modeleList.add(this.modeleList.size(), tomate.getDésignation());
+			this.modeleList.add(this.modeleList.size(), tomate);
 		}
 	}
 
