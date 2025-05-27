@@ -69,7 +69,7 @@ public class FenetrePrincipal extends JFrame {
 		
 		//Création du titre
 		JLabel lblTitle = new JLabel("O'Tomates");
-		lblTitle.setIcon(new ImageIcon("C:\\Users\\ilyas\\git\\repository\\programmation_SAE_S2-01_2025_GX_Y\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
+		lblTitle.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
 		lblTitle.setFont(new Font("Ebrima", Font.BOLD, 30));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		headpanel.add(lblTitle, BorderLayout.CENTER);
@@ -77,7 +77,7 @@ public class FenetrePrincipal extends JFrame {
 		//Création du bouton Panier
 		JButton btnPanier = new JButton("-.-- €");
 		btnPanier.setFont(new Font("Ebrima", Font.BOLD, 15));
-		btnPanier.setIcon(new ImageIcon("C:\\Users\\ilyas\\git\\repository\\programmation_SAE_S2-01_2025_GX_Y\\src\\main\\resources\\images\\Icones\\buy_resize2.png"));
+		btnPanier.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\buy_resize2.png"));
 		headpanel.add(btnPanier, BorderLayout.EAST);
 		
 
