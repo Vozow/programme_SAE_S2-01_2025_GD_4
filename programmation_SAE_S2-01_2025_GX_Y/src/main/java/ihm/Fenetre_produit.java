@@ -10,11 +10,17 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.ImageIcon;
 
 public class Fenetre_produit extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -45,14 +51,62 @@ public class Fenetre_produit extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
+		contentPane.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new GridLayout(1, 2, 0, 0));
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		panel.add(lblNewLabel);
+		JButton btnNewButton = new JButton("Ajouter au panier");
+		panel.add(btnNewButton);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		panel.add(lblNewLabel_1);
+		JButton btnNewButton_1 = new JButton("Annuler");
+		panel.add(btnNewButton_1);
+		
+		JPanel Panneau_principal = new JPanel();
+		contentPane.add(Panneau_principal, BorderLayout.CENTER);
+		Panneau_principal.setLayout(new GridLayout(1, 2, 0, 0));
+		
+		JPanel Mini_paneau_gauche = new JPanel();
+		Panneau_principal.add(Mini_paneau_gauche);
+		Mini_paneau_gauche.setLayout(new GridLayout(3, 1, 0, 0));
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		Mini_paneau_gauche.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		Mini_paneau_gauche.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		Mini_paneau_gauche.add(lblNewLabel_4);
+		
+		JPanel Mini_paneau_droite = new JPanel();
+		Panneau_principal.add(Mini_paneau_droite);
+		Mini_paneau_droite.setLayout(new GridLayout(4, 1, 0, 0));
+		
+		JLabel Description = new JLabel("Description");
+		Mini_paneau_droite.add(Description);
+		
+		textField = new JTextField();
+		Mini_paneau_droite.add(textField);
+		textField.setColumns(10);
+		
+		JSplitPane Micro_panel_nb_graines = new JSplitPane();
+		Mini_paneau_droite.add(Micro_panel_nb_graines);
+		
+		JLabel Nb_graines_text = new JLabel("Nombre de graines : ");
+		Micro_panel_nb_graines.setLeftComponent(Nb_graines_text);
+		
+		JPanel Micro_panel_prix = new JPanel();
+		Mini_paneau_droite.add(Micro_panel_prix);
+		Micro_panel_prix.setLayout(new GridLayout(1, 3, 0, 0));
+		
+		JLabel Prix = new JLabel("Prix :");
+		Micro_panel_prix.add(Prix);
+		
+		textField_1 = new JTextField();
+		Micro_panel_prix.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JSpinner spinner = new JSpinner();
+		Micro_panel_prix.add(spinner);
 	}
 
 }
