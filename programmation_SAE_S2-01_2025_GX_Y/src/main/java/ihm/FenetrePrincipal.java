@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class FenetrePrincipal extends JFrame {
 
@@ -52,10 +54,12 @@ public class FenetrePrincipal extends JFrame {
 		headpanel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblTitle = new JLabel("O'Tomates");
+		lblTitle.setFont(new Font("Century Gothic", Font.BOLD, 30));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		headpanel.add(lblTitle, BorderLayout.CENTER);
 		
-		JButton btnPanier = new JButton("New button");
+		JButton btnPanier = new JButton("0.00 €");
+		btnPanier.setIcon(null);
 		headpanel.add(btnPanier, BorderLayout.EAST);
 		
 		//
