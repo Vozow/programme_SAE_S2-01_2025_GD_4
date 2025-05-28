@@ -4,16 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -21,6 +18,8 @@ import modèle.Tomate;
 
 public class TomatesListPainter extends JLabel implements ListCellRenderer<Object> {    
     
+	private static final long serialVersionUID = 1L;
+	
 	//Variable provenant de la class DefaultListCellRenderer qui s'occupe
 	//de gerer l'affichage par defaut d'une liste
     private static final Border SAFE_NO_FOCUS_BORDER = new EmptyBorder(1, 1, 1, 1);
@@ -33,7 +32,7 @@ public class TomatesListPainter extends JLabel implements ListCellRenderer<Objec
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,boolean cellHasFocus) {
+	public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,boolean cellHasFocus) {
 		//Création de l'affichage personnaliser de la liste
 		Tomate tomate = (Tomate) value;
 		this.setText(tomate.getDésignation());
