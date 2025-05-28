@@ -14,13 +14,18 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.JComboBox;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class FenetreProduit extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
 
 	/**
 	 * Launch the application.
@@ -52,12 +57,15 @@ public class FenetreProduit extends JFrame {
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
-		panel.setLayout(new GridLayout(1, 2, 0, 0));
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnNewButton = new JButton("Ajouter au panier");
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setBackground(SystemColor.activeCaption);
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Annuler");
+		btnNewButton_1.setBackground(SystemColor.activeCaption);
 		panel.add(btnNewButton_1);
 		
 		JPanel Panneau_principal = new JPanel();
@@ -66,16 +74,21 @@ public class FenetreProduit extends JFrame {
 		
 		JPanel Mini_paneau_gauche = new JPanel();
 		Panneau_principal.add(Mini_paneau_gauche);
-		Mini_paneau_gauche.setLayout(new GridLayout(3, 1, 0, 0));
+		Mini_paneau_gauche.setLayout(new GridLayout(4, 1, 0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
+		JLabel lblNewLabel_2 = new JLabel("Tomate X");
 		Mini_paneau_gauche.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Tomates200x200\\ananas-2-scaled.jpg"));
 		Mini_paneau_gauche.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
+		JLabel lblNewLabel_4 = new JLabel("En Stock");
 		Mini_paneau_gauche.add(lblNewLabel_4);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setEnabled(false);
+		Mini_paneau_gauche.add(comboBox);
 		
 		JPanel Mini_paneau_droite = new JPanel();
 		Panneau_principal.add(Mini_paneau_droite);
@@ -84,19 +97,28 @@ public class FenetreProduit extends JFrame {
 		JLabel Description = new JLabel("Description");
 		Mini_paneau_droite.add(Description);
 		
-		textField = new JTextField();
-		Mini_paneau_droite.add(textField);
-		textField.setColumns(10);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new EmptyBorder(10, 20, 10, 10));
+		Mini_paneau_droite.add(panel_2);
+		panel_2.setLayout(null);
 		
-		JSplitPane Micro_panel_nb_graines = new JSplitPane();
-		Mini_paneau_droite.add(Micro_panel_nb_graines);
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(10, 0, 194, 55);
+		panel_2.add(textArea);
 		
-		JLabel Nb_graines_text = new JLabel("Nombre de graines : ");
-		Micro_panel_nb_graines.setLeftComponent(Nb_graines_text);
+		JPanel panel_1 = new JPanel();
+		Mini_paneau_droite.add(panel_1);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		panel_1.add(lblNewLabel);
+		
+		textField_2 = new JTextField();
+		panel_1.add(textField_2);
+		textField_2.setColumns(10);
 		
 		JPanel Micro_panel_prix = new JPanel();
 		Mini_paneau_droite.add(Micro_panel_prix);
-		Micro_panel_prix.setLayout(new GridLayout(1, 3, 0, 0));
+		Micro_panel_prix.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel Prix = new JLabel("Prix :");
 		Micro_panel_prix.add(Prix);
@@ -108,5 +130,4 @@ public class FenetreProduit extends JFrame {
 		JSpinner spinner = new JSpinner();
 		Micro_panel_prix.add(spinner);
 	}
-
 }
