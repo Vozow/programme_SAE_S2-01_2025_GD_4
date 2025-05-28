@@ -3,6 +3,7 @@ package ihm;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.BorderLayout;
@@ -10,6 +11,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
@@ -20,6 +22,8 @@ import java.awt.GridLayout;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FenetrePrincipal extends JFrame {
 
@@ -32,6 +36,9 @@ public class FenetrePrincipal extends JFrame {
 	private JButton btnPanier;
 	private JComboBox<String> comboBoxFiltreType;
 	private JComboBox<String> comboBoxFiltreCouleur;
+	private JList<Tomate> listTomates;
+	
+	private Tomate tomateSelectionnée;
 	private Couleur couleurActuelle;
 	private TypeTomate typeActuel;
 	
@@ -47,8 +54,8 @@ public class FenetrePrincipal extends JFrame {
 					//Initialisation de la base de donnée
 					Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("./src/main/resources/data/tomates.json");
 					//Initialisation de la fenetre
-					FenetrePrincipal frame = new FenetrePrincipal(tomates);
-						frame.setVisible(true);
+					FenetrePrincipal fenPrincipal = new FenetrePrincipal(tomates);
+					fenPrincipal.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -65,13 +72,15 @@ public class FenetrePrincipal extends JFrame {
 	public FenetrePrincipal(Tomates tomates) {
 		this.tomates = tomates;
 		
+		//Parametre de base
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 900);
+		
+		
+		//Border Layout principal
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
-		//Border Layout principal
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		
@@ -101,13 +110,15 @@ public class FenetrePrincipal extends JFrame {
 		//Création du modèle de la liste listTomates
 		this.modeleList = new DefaultListModel<Tomate>();
 		//Création de la listTomates
-		JList<Tomate> listTomates = new JList<Tomate>(this.modeleList);
-		listTomates.setFont(new Font("Ebrima", Font.PLAIN, 15));
-		ListScrollPane.setViewportView(listTomates);
+		this.listTomates = new JList<Tomate>(this.modeleList);
+		//Gestion du double clique sur la liste
+		doubleClickList();
+		this.listTomates.setFont(new Font("Ebrima", Font.PLAIN, 15));
+		ListScrollPane.setViewportView(this.listTomates);
 		//Utilisation du modèle pour importer les tomates
-		listTomates.setModel(this.modeleList);
+		this.listTomates.setModel(this.modeleList);
 		//Utilisation d'un ListCellRenderer pour un affichage personnalisé
-		listTomates.setCellRenderer(new TomatesListPainter());
+		this.listTomates.setCellRenderer(new TomatesListPainter());
 		
 		
 		//Création du panel contenant les filtres et le bouton conseil
@@ -121,7 +132,10 @@ public class FenetrePrincipal extends JFrame {
 		JPanel filterPanel = new JPanel();
 		bottomPanel.add(filterPanel, BorderLayout.CENTER);
 		filterPanel.setLayout(new GridLayout(0, 2, 0, 0));
-		filterPanel.setBorder(new LineBorder(new Color(0, 0, 0), 1));
+		//Création d'une bordure personalisée
+		Border borderFilterPanel = BorderFactory.createTitledBorder(new LineBorder(new Color(0, 0, 0), 1), 
+				"Filtres", 0, 0, new Font("Ebrima", Font.BOLD, 15));
+		filterPanel.setBorder(borderFilterPanel);
 		
 		//ComboBox pour le filtre avec type
 		this.comboBoxFiltreType = new JComboBox<String>();
@@ -162,6 +176,22 @@ public class FenetrePrincipal extends JFrame {
 		
 		//Actualisation de la table tableTomates
 		this.actualiserListTomates();
+	}
+
+
+
+
+	private void doubleClickList() {
+		this.listTomates.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() >= 2) {
+					FenetrePrincipal.this.tomateSelectionnée = FenetrePrincipal.this.listTomates.getSelectedValue();
+					FenetreProduit fenProduit = new FenetreProduit(FenetrePrincipal.this.tomateSelectionnée);
+					fenProduit.setVisible(true);
+				}
+			}
+		});
 	}
 
 

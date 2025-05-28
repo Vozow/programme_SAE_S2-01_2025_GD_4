@@ -70,6 +70,11 @@ public class TomatesListPainter extends JLabel implements ListCellRenderer<Objec
 		TextAreaDesc.setWrapStyleWord(true);
 		TextAreaDesc.setOpaque(false);
 		panelText.add(TextAreaDesc, BorderLayout.CENTER);
+		
+		JLabel lblInstruction = new JLabel("Double cliquez pour acheter...");
+		lblInstruction.setFont(new Font("Ebrima", Font.ITALIC, 12));
+		lblInstruction.setBorder(new EmptyBorder(0, 20, 0, 0));
+		panelText.add(lblInstruction, BorderLayout.SOUTH);
 			
 		//Code provenant de la class DefaultListCellRenderer qui s'occupe
 		//de gerer l'affichage par defaut d'une liste, modifier pour la 
