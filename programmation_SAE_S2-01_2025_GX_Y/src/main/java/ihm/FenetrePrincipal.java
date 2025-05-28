@@ -90,7 +90,7 @@ public class FenetrePrincipal extends JFrame {
 		
 		
 		//Création du bouton Panier
-		this.btnPanier = new JButton("-.-- €");
+		this.btnPanier = new JButton("-.--€");
 		btnPanier.setFont(new Font("Ebrima", Font.BOLD, 15));
 		btnPanier.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\buy_resize2.png"));
 		headpanel.add(btnPanier, BorderLayout.EAST);
