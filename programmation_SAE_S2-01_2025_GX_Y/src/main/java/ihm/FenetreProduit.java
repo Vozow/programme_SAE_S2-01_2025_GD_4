@@ -1,12 +1,11 @@
 package ihm;
 
-import java.awt.EventQueue;
 import modèle.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
@@ -14,15 +13,17 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
-public class FenetreProduit extends JFrame {
+public class FenetreProduit extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -31,31 +32,16 @@ public class FenetreProduit extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldNbGraine;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public FenetreProduit(Tomate tomate) {
 		this.tomate = tomate;
 		
 		//Parametre princiapl
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 500);
-		
+		setModal(true);;
+		setTitle("O'Tomates - " + tomate.getDésignation());
+		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
 		
 		//Border Layout principal
 		contentPane = new JPanel();
@@ -73,7 +59,7 @@ public class FenetreProduit extends JFrame {
 		JLabel lblTitlePanel = new JLabel(tomate.getDésignation());
 		lblTitlePanel.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
 		lblTitlePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		lblTitlePanel.setFont(new Font("Ebrima", Font.BOLD, 20));
+		lblTitlePanel.setFont(new Font("Ebrima", Font.BOLD, 25));
 		lblTitlePanel.setHorizontalAlignment(SwingConstants.CENTER);
 		titlePanel.add(lblTitlePanel, BorderLayout.CENTER);
 		
@@ -93,26 +79,32 @@ public class FenetreProduit extends JFrame {
 		//Création de la description
 		JTextArea TextAreaDescription = new JTextArea(tomate.getDescription());
 		TextAreaDescription.setEditable(false);
-		TextAreaDescription.setFont(new Font("Ebrima", Font.PLAIN, 15));
+		TextAreaDescription.setFont(new Font("Ebrima", Font.PLAIN, 20));
 		TextAreaDescription.setBorder(new EmptyBorder(10, 20, 0, 0));
 		TextAreaDescription.setLineWrap(true);
 		TextAreaDescription.setWrapStyleWord(true);
 		TextAreaDescription.setOpaque(false);
+		TextAreaDescription.setBorder(new EmptyBorder(10, 20, 0, 0));
 		infoPanel.add(TextAreaDescription, BorderLayout.CENTER);
 		
 		//Création du panel d'achat
 		JPanel buyPanel = new JPanel();
-		infoPanel.add(buyPanel, BorderLayout.SOUTH);
-		
-		//Création du panel gauche contenant le stock et les suggestion
-		JPanel leftPanel = new JPanel();
-		buyPanel.add(leftPanel);
-		leftPanel.setLayout(new BorderLayout(0, 0));
+		contentPane.add(buyPanel, BorderLayout.SOUTH);
+		buyPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
+		buyPanel.setLayout(new BorderLayout(0, 0));
 		
 		//Création du label stock
 		JLabel lblStockTomate = new JLabel("En Stock : " + String.valueOf(tomate.getStock()));
+		lblStockTomate.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblStockTomate.setHorizontalAlignment(SwingConstants.CENTER);
-		leftPanel.add(lblStockTomate, BorderLayout.CENTER);
+		lblStockTomate.setBorder(new LineBorder(Color.gray, 1));
+		buyPanel.add(lblStockTomate, BorderLayout.NORTH);
+
+		
+		//Création du panel gauche contenant le stock et les suggestion
+		JPanel leftPanel = new JPanel();
+		buyPanel.add(leftPanel, BorderLayout.WEST);
+		leftPanel.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		//Création de la comboBox suggerant les tomates
 		JComboBox<Tomate> comboBoxTomateSuggerer = new JComboBox<Tomate>();
@@ -122,40 +114,51 @@ public class FenetreProduit extends JFrame {
 		
 		//Création du panel droit contenant la description, le nombre de graine, le prix et l'achat
 		JPanel rightPanel = new JPanel();
-		buyPanel.add(rightPanel);
-		rightPanel.setLayout(new GridLayout(4, 1, 0, 0));
+		buyPanel.add(rightPanel, BorderLayout.EAST);
+		rightPanel.setLayout(new GridLayout(3, 1, 0, 0));
 		
 
 		
 		//Création du label contenant le nombre de graine
 		JLabel lblGraine = new JLabel("Nombre de graine : " + String.valueOf(tomate.getNbGrainesParSachet()));
-		lblGraine.setFont(new Font("Ebrima", Font.PLAIN, 10));
+		lblGraine.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGraine.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblGraine.setBorder(new EmptyBorder(10, 10, 10, 10));
 		rightPanel.add(lblGraine);
 		
 		//Création du label prix
 		JLabel lblPrix = new JLabel("Prix Unitaire : " + tomate.getPrixTTC());
-		lblPrix.setFont(new Font("Ebrima", Font.PLAIN, 10));
+		lblPrix.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPrix.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblPrix.setBorder(new EmptyBorder(10, 10, 10, 10));
 		rightPanel.add(lblPrix);
 		
 		
 		//Création du panelPrix contenant le prix et le choix d'achat
 		JPanel prixPanel = new JPanel();
 		rightPanel.add(prixPanel);
-		prixPanel.setLayout(new GridLayout(3, 1, 0, 0));
+		prixPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		prixPanel.setLayout(new GridLayout(1, 3, 0, 0));
 		
 		//Création le label prix total
 		JLabel lblPrixTotal = new JLabel("Prix Total : ");
-		lblPrixTotal.setFont(new Font("Ebrima", Font.PLAIN, 10));
+		lblPrixTotal.setBorder(new EmptyBorder(10, 10, 10, 10));
+		lblPrixTotal.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPrixTotal.setFont(new Font("Ebrima", Font.PLAIN, 14));
 		prixPanel.add(lblPrixTotal);
 		
 		//Création du champ de texte contenant le prix totale
 		JTextArea TextAreaPrixTotal = new JTextArea("-.--€");
+		TextAreaPrixTotal.setBorder(new EmptyBorder(10, 10, 10, 10));
 		TextAreaPrixTotal.setEditable(false);
-		TextAreaPrixTotal.setFont(new Font("Ebrima", Font.PLAIN, 10));
+		TextAreaPrixTotal.setFont(new Font("Ebrima", Font.PLAIN, 14));
 		prixPanel.add(TextAreaPrixTotal);
 		
+		JSpinner spinner = new JSpinner();
+		prixPanel.add(spinner);
+		
 		//Création du panel de bas avec les boutons
-		JPanel bottomPanel = new JPanel();
+		/*JPanel bottomPanel = new JPanel();
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		bottomPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -168,7 +171,7 @@ public class FenetreProduit extends JFrame {
 		//Création du bouton annuler
 		JButton btnNewButton_1 = new JButton("Annuler");
 		btnNewButton_1.setBackground(SystemColor.activeCaption);
-		bottomPanel.add(btnNewButton_1);
+		bottomPanel.add(btnNewButton_1);*/
 		
 	}
 }

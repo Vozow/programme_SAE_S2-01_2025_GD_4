@@ -75,6 +75,8 @@ public class FenetrePrincipal extends JFrame {
 		//Parametre de base
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 900);
+		setTitle("O'Tomates");
+		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
 		
 		
 		//Border Layout principal
