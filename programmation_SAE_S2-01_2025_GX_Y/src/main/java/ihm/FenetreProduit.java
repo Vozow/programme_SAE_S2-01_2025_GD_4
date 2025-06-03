@@ -23,6 +23,8 @@ import javax.swing.BoxLayout;
 import java.awt.Component;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FenetreProduit extends JDialog {
 
@@ -33,6 +35,7 @@ public class FenetreProduit extends JDialog {
 	private JSpinner spinnerQteAchat;
 	private JLabel lblPrixTotal;
 	private Tomate tomate;
+	private JComboBox<String> comboBoxTomateSuggerer;
 	private DecimalFormat df = new DecimalFormat("0.00");
 
 	public FenetreProduit(Tomate tomate) {
@@ -94,8 +97,7 @@ public class FenetreProduit extends JDialog {
 		TextAreaDescription.setWrapStyleWord(true);
 		TextAreaDescription.setOpaque(false);
 		infoPanel.add(TextAreaDescription);
-		
-		
+
 		
 		//Création du label stock
 		JLabel lblStockTomate = new JLabel();
@@ -114,11 +116,17 @@ public class FenetreProduit extends JDialog {
 		mainPanel.add(lblStockTomate);
 		
 		//Création de la comboBox suggerant les tomates
-		if(tomate.getStock() == 0) {
-			JComboBox<Tomate> comboBoxTomateSuggerer = new JComboBox<Tomate>();
-			comboBoxTomateSuggerer.setEnabled(false);
-			mainPanel.add(comboBoxTomateSuggerer);
+		this.comboBoxTomateSuggerer = new JComboBox<String>();
+		this.comboBoxTomateSuggerer.addItem("Produit similaire");
+		for(Tomate t : tomate.getTomatesApparentées()) {
+			this.comboBoxTomateSuggerer.addItem(t.getDésignation());
 		}
+		this.comboBoxTomateSuggerer.setSelectedIndex(0);
+		if(tomate.getStock() == 0) {
+			mainPanel.add(this.comboBoxTomateSuggerer);
+		}
+		produitSimilaireChoisi(this.comboBoxTomateSuggerer);
+
 			
 		//Création du panelPrix contenant le prix total et le choix d'achat
 		JPanel prixPanel = new JPanel();
@@ -181,6 +189,7 @@ public class FenetreProduit extends JDialog {
 		
 		//Création du bouton ajout au panier
 		JButton btnAjout = new JButton("Ajouter au panier");
+		boutonAchatAppuye(btnAjout);
 		btnAjout.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAjout.setForeground(new Color(0, 0, 0));
 		btnAjout.setBackground(SystemColor.activeCaption);
@@ -189,6 +198,7 @@ public class FenetreProduit extends JDialog {
 		
 		//Création du bouton annuler
 		JButton btnAnnuler = new JButton("Annuler");
+		boutonAnnulerAppuye(btnAnnuler);
 		btnAnnuler.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAnnuler.setBackground(SystemColor.activeCaption);
 		btnAnnuler.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -196,6 +206,44 @@ public class FenetreProduit extends JDialog {
 		
 		//Appel fonction qui actualise le prix
 		this.actualiserPrix();
+	}
+
+
+	//Des que la comboBox change de valeur
+	private void produitSimilaireChoisi(JComboBox<String> comboBoxTomateSuggerer) {
+		comboBoxTomateSuggerer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(Tomate t : tomate.getTomatesApparentées()) {
+					if(t.getDésignation().equals((String) FenetreProduit.this.comboBoxTomateSuggerer.getSelectedItem())) {
+						FenetreProduit fenProduit = new FenetreProduit(t);
+						fenProduit.setVisible(true);
+					}
+				}
+			}
+		});
+	}
+
+
+	//Des que le bouton achat est appuye
+	private void boutonAchatAppuye(JButton btnAjout) {
+		btnAjout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetreProduit.this.tomate.setStock(tomate.getStock()-(int) FenetreProduit.this.spinnerQteAchat.getValue());
+				//A FAIRE : SYSTEME DE PANIER
+				//A FAIRE : LIASON VIA LE FICHIER JSON
+				FenetreProduit.this.dispose();
+			}
+		});
+	}
+
+	
+	//Des que le bouton annuler et actionner
+	private void boutonAnnulerAppuye(JButton btnAnnuler) {
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetreProduit.this.dispose();
+			}
+		});
 	}
 
 	

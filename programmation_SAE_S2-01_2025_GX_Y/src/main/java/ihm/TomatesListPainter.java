@@ -1,13 +1,8 @@
 package ihm;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -29,9 +24,7 @@ public class TomatesListPainter extends JLabel implements ListCellRenderer<Objec
     private static final Border SAFE_NO_FOCUS_BORDER = new EmptyBorder(1, 1, 1, 1);
     private static final Border DEFAULT_NO_FOCUS_BORDER = new EmptyBorder(1, 1, 1, 1);
     protected static Border noFocusBorder = DEFAULT_NO_FOCUS_BORDER;
-    
-    private Image image;
-    
+        
 	public TomatesListPainter() {
         setBorder(SAFE_NO_FOCUS_BORDER);
 		setOpaque(true);
@@ -53,15 +46,6 @@ public class TomatesListPainter extends JLabel implements ListCellRenderer<Objec
 		insidePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel lblImage = new JLabel();
-		//Recupere l'image de la tomate
-		/*try {
-			this.image = ImageIO.read(new File(".\\src\\main\\resources\\images\\Tomates200x200\\"+tomate.getNomImage()+".jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.image = this.image.getScaledInstance(20, 20, Image.SCALE_SMOOTH);*/
-		//Affiche l'image
 		lblImage.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Tomates200x200\\"+tomate.getNomImage()+".jpg"));
 		lblImage.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		insidePanel.add(lblImage, BorderLayout.WEST);
