@@ -23,6 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
 
 public class FenetrePrincipal extends JFrame {
@@ -71,10 +73,13 @@ public class FenetrePrincipal extends JFrame {
 	
 	//Préparation de la fenetre
 	public FenetrePrincipal(Tomates tomates) {
+		//Quand la fenetre est fermé
+		fenetreFermé();
+		
 		this.tomates = tomates;
 		
 		//Parametre de base
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 700, 900);
 		setTitle("O'Tomates");
 		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
@@ -182,6 +187,21 @@ public class FenetrePrincipal extends JFrame {
 		this.actualiserListTomates();
 	}
 
+	//Quand la fenetre est fermé.
+	private void fenetreFermé() {
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				for(Tomate tomate : FenetrePrincipal.panier.getTomatesPresentes(tomates)) {
+					tomate.setStock(tomate.getStock() + FenetrePrincipal.panier.getNbDeUnTypeDeTomate(tomate));
+				}
+				FenetrePrincipal.panier.vider();
+				OutilsBaseDonneesTomates.sauvegarderBaseDeTomates(FenetrePrincipal.this.tomates, "./src/main/resources/data/tomates.json");
+				FenetrePrincipal.this.dispose();
+			}
+		});
+	}
+
 
 	//Fonction appeler lorsque le bouton panier est appuyé
 	private void btnPanierAppuye() {
@@ -287,5 +307,5 @@ public class FenetrePrincipal extends JFrame {
 		}
 	}
 
-	
+
 }

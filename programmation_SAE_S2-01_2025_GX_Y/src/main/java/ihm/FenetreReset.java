@@ -49,6 +49,14 @@ public class FenetreReset extends JDialog {
 		panelBouton.add(btnNon);
 		
 		JButton btnOui = new JButton("Oui");
+		btnOuiAppuyé(btnOui);
+		btnOui.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelBouton.add(btnOui);
+		
+
+	}
+
+	private void btnOuiAppuyé(JButton btnOui) {
 		btnOui.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("./src/main/resources/data/tomatesSauvegarde.json");
@@ -56,10 +64,6 @@ public class FenetreReset extends JDialog {
 				FenetreReset.this.dispose();
 			}
 		});
-		btnOui.setFont(new Font("Ebrima", Font.BOLD, 15));
-		panelBouton.add(btnOui);
-		
-
 	}
 
 	private void btnNonAppuyé(JButton btnNon) {

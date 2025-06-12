@@ -196,20 +196,7 @@ public class FenetrePanier extends JDialog {
 		
 		//Bouton vider le panier
 		JButton btnVider = new JButton("Vider le panier");
-		btnVider.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for(Tomate tomate : FenetrePrincipal.panier.getTomatesPresentes(tomates)) {
-					tomate.setStock(tomate.getStock() + FenetrePrincipal.panier.getNbDeUnTypeDeTomate(tomate));
-				}
-				FenetrePrincipal.panier.vider();
-				FenetrePanier.this.tomateSelectionnée = null;
-				FenetrePanier.this.lblNbTomateSelectionné.setText("-");
-				FenetrePanier.this.lblNomTomateSelectionné.setText("Aucune ligne selectionnée"); 
-				FenetrePanier.this.actualiserTableauPanier();
-				FenetrePanier.this.actualiserTotal();
-				FenetrePanier.this.dispose();
-			}
-		});
+		btnViderAppuyé(tomates, btnVider);
 		btnVider.setBorder(new EmptyBorder(10, 10, 10, 10));
 		btnVider.setBackground(SystemColor.activeCaption);
 		buttonPanel.add(btnVider);
@@ -229,6 +216,25 @@ public class FenetrePanier extends JDialog {
 		this.actualiserTableauPanier();
 		//Actualise le Prix sous-total et total
 		this.actualiserTotal();
+	}
+
+
+	private void btnViderAppuyé(Tomates tomates, JButton btnVider) {
+		btnVider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(Tomate tomate : FenetrePrincipal.panier.getTomatesPresentes(tomates)) {
+					tomate.setStock(tomate.getStock() + FenetrePrincipal.panier.getNbDeUnTypeDeTomate(tomate));
+				}
+				FenetrePrincipal.panier.vider();
+				FenetrePanier.this.tomateSelectionnée = null;
+				FenetrePanier.this.lblNbTomateSelectionné.setText("-");
+				FenetrePanier.this.lblNomTomateSelectionné.setText("Aucune ligne selectionnée"); 
+				FenetrePanier.this.actualiserTableauPanier();
+				FenetrePanier.this.actualiserTotal();
+				OutilsBaseDonneesTomates.sauvegarderBaseDeTomates(FenetrePanier.this.tomates, "./src/main/resources/data/tomates.json");
+				FenetrePanier.this.dispose();
+			}
+		});
 	}
 
 

@@ -22,6 +22,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -44,10 +46,12 @@ public class FenetreFacture extends JDialog {
 	//Préparation de la fenetre
 	public FenetreFacture(String nom, String prenom, String adresse1, String codePostal, 
 			String ville, String telephone, String mail, String moyenPaiement, Tomates tomates) {
+		//Quand la fenetre est fermé
+		fenetreFermé();
 		
 		this.tomates = tomates;
 		//Parametre principal
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 650, 650);
 		setTitle("O'Tomates - Panier");
 		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
@@ -180,6 +184,18 @@ public class FenetreFacture extends JDialog {
 
 	}
 
+	//Quand la fenetre est fermé
+	private void fenetreFermé() {
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				FenetreFacture.this.dispose();
+				System.exit(0);
+			}
+		});
+	}
+	
+	
 	//Lorsque le bouton Quitter est appuyé
 	private void btnQuitterAppuyé(JButton btnQuitter) {
 		btnQuitter.addActionListener(new ActionListener() {
