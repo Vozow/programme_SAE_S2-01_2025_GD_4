@@ -1,6 +1,7 @@
 package ihm;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.SystemColor;
 import java.text.DecimalFormat;
 
 import javax.swing.JFrame;
@@ -84,20 +85,23 @@ public class FenetrePanier extends JDialog {
 		this.tablePanier.setDefaultEditor(Object.class, null);
 
 		
-		
 		//Panel du dessous
 		JPanel southPanel = new JPanel();
-		southPanel.setOpaque(true);
-		southPanel.setBackground(Color.white);
-		southPanel.setBorder(new LineBorder(Color.lightGray, 2));
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
 		contentPane.add(southPanel, BorderLayout.SOUTH);
+
+		JPanel mainPanel = new JPanel();
+		mainPanel.setOpaque(true);
+		mainPanel.setBackground(Color.white);
+		mainPanel.setBorder(new LineBorder(Color.lightGray, 2));
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		southPanel.add(mainPanel, BorderLayout.SOUTH);
 		
 		//Panel de gestion du panier 
 		JPanel gestionPanel = new JPanel();
 		gestionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		gestionPanel.setOpaque(false);
-		southPanel.add(gestionPanel);
+		mainPanel.add(gestionPanel);
 		gestionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		//Bouton retirer
@@ -123,7 +127,7 @@ public class FenetrePanier extends JDialog {
 		this.lblNomTomateSelectionné.setFont(new Font("Ebrima", Font.ITALIC, 14));
 		this.lblNomTomateSelectionné.setAlignmentX(Component.CENTER_ALIGNMENT);
 		this.lblNomTomateSelectionné.setBorder(new EmptyBorder(0, 0, 10, 0));
-		southPanel.add(this.lblNomTomateSelectionné);
+		mainPanel.add(this.lblNomTomateSelectionné);
 		
 		//Bouton retirer
 		JButton btnSupprimer = new JButton("Supprimer cette tomate");
@@ -132,7 +136,7 @@ public class FenetrePanier extends JDialog {
 		btnSupprimer.setFont(new Font("Ebrima", Font.BOLD, 15));
 		btnSupprimer.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnSupprimer.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\delete_resize2.png"));
-		southPanel.add(btnSupprimer);
+		mainPanel.add(btnSupprimer);
 		
 		//Label du prix total
 		this.lblTotal = new JLabel("Total : " + df.format(FenetrePrincipal.panier.getPrixTotal() + 5.5f) + "€");
@@ -141,14 +145,14 @@ public class FenetrePanier extends JDialog {
 		lblTotal.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\coin_resize2.png"));
 		lblTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTotal.setFont(new Font("Ebrima", Font.BOLD, 20));
-		southPanel.add(lblTotal);
+		mainPanel.add(lblTotal);
 		
 		//Panel d'information de calcul du prix
 		JPanel prixPanel = new JPanel();
 		prixPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		prixPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		prixPanel.setOpaque(false);
-		southPanel.add(prixPanel);
+		mainPanel.add(prixPanel);
 		
 		//Création du label prix
 		this.lblSousTotal = new JLabel("Sous-Total : " + df.format(FenetrePrincipal.panier.getPrixTotal()) + "€");
@@ -166,6 +170,55 @@ public class FenetrePanier extends JDialog {
 		lblFraisLivrarison.setBorder(new EmptyBorder(0, 10, 10, 10));
 		prixPanel.add(lblFraisLivrarison);				
 				
+
+		//Panel d'information de calcul du prix
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		buttonPanel.setOpaque(false);
+		southPanel.add(buttonPanel);
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetrePanier.this.dispose();
+			}
+		});
+		btnAnnuler.setBorder(new EmptyBorder(10, 10, 10, 10));
+		btnAnnuler.setBackground(SystemColor.activeCaption);
+		buttonPanel.add(btnAnnuler);
+		
+		JButton btnVider = new JButton("Vider le panier");
+		btnVider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for(Tomate tomate : FenetrePrincipal.panier.getTomatesPresentes(tomates)) {
+					tomate.setStock(tomate.getStock() + FenetrePrincipal.panier.getNbDeUnTypeDeTomate(tomate));
+				}
+				FenetrePrincipal.panier.vider();
+				FenetrePanier.this.tomateSelectionnée = null;
+				FenetrePanier.this.lblNbTomateSelectionné.setText("-");
+				FenetrePanier.this.lblNomTomateSelectionné.setText("Aucune ligne selectionnée"); 
+				FenetrePanier.this.actualiserTableauPanier();
+				FenetrePanier.this.actualiserTotal();
+				FenetrePanier.this.dispose();
+			}
+		});
+		btnVider.setBorder(new EmptyBorder(10, 10, 10, 10));
+		btnVider.setBackground(SystemColor.activeCaption);
+		buttonPanel.add(btnVider);
+
+		JButton btnValider = new JButton("Valider");
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetrePanier.this.actualiserTableauPanier();
+				FenetrePanier.this.actualiserTotal();
+				FenetreCoordonnées fenCoord = new FenetreCoordonnées();
+				fenCoord.setVisible(true);
+			}
+		});
+		btnValider.setBorder(new EmptyBorder(10, 10, 10, 10));
+		btnValider.setBackground(SystemColor.activeCaption);
+		buttonPanel.add(btnValider);
 
 		//Actualise le tableau panier
 		this.actualiserTableauPanier();
@@ -192,6 +245,7 @@ public class FenetrePanier extends JDialog {
 						FenetrePanier.this.lblNbTomateSelectionné.setText("-");
 						FenetrePanier.this.lblNomTomateSelectionné.setText("Aucune ligne selectionnée"); 
 						FenetrePanier.this.actualiserTotal();
+						if(FenetrePrincipal.panier.isEmpty()) FenetrePanier.this.dispose();
 					}
 				}
 			}

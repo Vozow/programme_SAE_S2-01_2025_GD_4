@@ -1,176 +1,283 @@
 package ihm;
-
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
+import java.awt.TextField;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 
-public class FenetreCoordonnées extends JFrame {
+public class FenetreCoordonnées extends JDialog {
 
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField textFieldNom;
+	private JTextField textFieldPrenom;
+	private JTextField textFieldAdress1;
+	private JTextField textFieldAdresse2;
+	private JTextField textFieldCP;
+	private JTextField textFieldVille;
+	private JTextField textFieldTel;
+	private JTextField textFieldMail;
+	private JRadioButton rdbtnPayementCarteCredit;
+	private JRadioButton rdbtnPayementPaypal;
+	private JRadioButton rdbtnPayementCheque;
+	private JRadioButton rdbtnNewsletterOui;
+	private JRadioButton rdbtnNewsletterNon;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FenetreCoordonnées frame = new FenetreCoordonnées();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public FenetreCoordonnées() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		//Parametre principal
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 550, 600);
+		setModal(true);;
+		setTitle("O'Tomates - Panier");
+		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
+		
+		//Panel principal
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(new GridLayout(12, 1, 0, 0));
+		//Scroll panel
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
+		//panel princiapl
+		JPanel panelPrincipal = new JPanel();
+		panelPrincipal.setLayout(new BorderLayout(0, 0));
+		panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
+		scrollPane.setViewportView(panelPrincipal);
 		
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		//Titre de la page
+		JLabel lblTitlePanel = new JLabel("Vos Coordonnées");
+		panelPrincipal.add(lblTitlePanel, BorderLayout.NORTH);
+		lblTitlePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		lblTitlePanel.setFont(new Font("Ebrima", Font.BOLD, 25));
+		lblTitlePanel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitlePanel.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
 		
-		JLabel Nom_label = new JLabel("Nom :");
-		panel_2.add(Nom_label);
+
 		
-		textField = new JTextField();
-		panel_2.add(textField);
-		textField.setColumns(10);
+		//Panel principal
+		JPanel mainPanel = new JPanel();
+		panelPrincipal.add(mainPanel, BorderLayout.CENTER);
+		mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		mainPanel.setBackground(Color.white);
+		mainPanel.setBorder(new LineBorder(Color.lightGray, 2));
+
+		//NOM
+		JPanel panelNom = new JPanel();
+		panelNom.setOpaque(false);
+		mainPanel.add(panelNom);
+		panelNom.setLayout(new GridLayout(0, 1, 0, 0));
+		panelNom.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		JPanel panel_3 = new JPanel();
-		panel.add(panel_3);
+		JLabel lblNom = new JLabel("Nom : ");
+		lblNom.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelNom.add(lblNom);
 		
-		JLabel Prénom = new JLabel("Prénom :");
-		panel_3.add(Prénom);
+		textFieldNom = new JTextField();
+		panelNom.add(textFieldNom);
+		textFieldNom.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		panel_3.add(textField_1);
 		
-		JPanel panel_4 = new JPanel();
-		panel.add(panel_4);
+		//PRENOM
+		JPanel panelPrenom = new JPanel();
+		panelPrenom.setOpaque(false);
+		mainPanel.add(panelPrenom);
+		panelPrenom.setLayout(new GridLayout(0, 1, 0, 0));
+		panelPrenom.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		JLabel Adresse1 = new JLabel("Adresse 1 :");
-		panel_4.add(Adresse1);
+		JLabel lblPrenom = new JLabel("Prénom : ");
+		lblPrenom.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelPrenom.add(lblPrenom);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		panel_4.add(textField_2);
+		textFieldPrenom = new JTextField();
+		textFieldPrenom.setColumns(10);
+		panelPrenom.add(textFieldPrenom);
 		
-		JPanel panel_5 = new JPanel();
-		panel.add(panel_5);
 		
-		JLabel Adresse2 = new JLabel("Adresse 2");
-		panel_5.add(Adresse2);
+		//ADRESSE 1
+		JPanel panelAdresse1 = new JPanel();
+		panelAdresse1.setOpaque(false);
+		mainPanel.add(panelAdresse1);
+		panelAdresse1.setLayout(new GridLayout(0, 1, 0, 0));
+		panelAdresse1.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		panel_5.add(textField_3);
+		JLabel lblAdresse1 = new JLabel("Adresse 1 : ");
+		lblAdresse1.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelAdresse1.add(lblAdresse1);
 		
-		JPanel panel_6 = new JPanel();
-		panel.add(panel_6);
+		textFieldAdress1 = new JTextField();
+		textFieldAdress1.setColumns(10);
+		panelAdresse1.add(textFieldAdress1);
 		
-		JLabel Code_postal = new JLabel("Code postal");
-		panel_6.add(Code_postal);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		panel_6.add(textField_4);
+		//ADRESSE2
+		JPanel panelAdresse2 = new JPanel();
+		panelAdresse2.setOpaque(false);
+		mainPanel.add(panelAdresse2);
+		panelAdresse2.setLayout(new GridLayout(0, 1, 0, 0));
+		panelAdresse2.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		JPanel panel_7 = new JPanel();
-		panel.add(panel_7);
+		JLabel lblAdresse2 = new JLabel("Adresse 2 : ");
+		lblAdresse2.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelAdresse2.add(lblAdresse2);
 		
-		JLabel i = new JLabel("Ville");
-		panel_7.add(i);
+		textFieldAdresse2 = new JTextField();
+		textFieldAdresse2.setColumns(10);
+		panelAdresse2.add(textFieldAdresse2);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		panel_7.add(textField_5);
 		
-		JPanel panel_8 = new JPanel();
-		panel.add(panel_8);
+		//CODE POSTAL
+		JPanel panelCP = new JPanel();
+		panelCP.setOpaque(false);
+		mainPanel.add(panelCP);
+		panelCP.setLayout(new GridLayout(0, 1, 0, 0));
+		panelCP.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		JLabel Téléphone = new JLabel("Téléphone");
-		panel_8.add(Téléphone);
+		JLabel lblCP = new JLabel("Code postal : ");
+		lblCP.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelCP.add(lblCP);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		panel_8.add(textField_6);
+		textFieldCP = new JTextField();
+		textFieldCP.setColumns(10);
+		panelCP.add(textFieldCP);
 		
-		JPanel panel_9 = new JPanel();
-		panel.add(panel_9);
 		
-		JLabel Mail = new JLabel("Mail");
-		panel_9.add(Mail);
+		//VILLE
+		JPanel panelVille = new JPanel();
+		panelVille.setOpaque(false);
+		mainPanel.add(panelVille);
+		panelVille.setLayout(new GridLayout(0, 1, 0, 0));
+		panelVille.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		panel_9.add(textField_7);
+		JLabel lblVille = new JLabel("Ville : ");
+		lblVille.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelVille.add(lblVille);
 		
-		JPanel panel_10 = new JPanel();
-		panel.add(panel_10);
+		textFieldVille = new JTextField();
+		textFieldVille.setColumns(10);
+		panelVille.add(textFieldVille);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
-		panel_10.add(rdbtnNewRadioButton);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("New radio button");
-		panel_10.add(rdbtnNewRadioButton_1);
+		//TELEPHONE
+		JPanel panelTel = new JPanel();
+		panelTel.setOpaque(false);
+		mainPanel.add(panelTel);
+		panelTel.setLayout(new GridLayout(0, 1, 0, 0));
+		panelTel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("New radio button");
-		panel_10.add(rdbtnNewRadioButton_2);
+		JLabel lblTel = new JLabel("Téléphone : ");
+		lblTel.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelTel.add(lblTel);
 		
-		JPanel panel_11 = new JPanel();
-		panel.add(panel_11);
+		textFieldTel = new JTextField();
+		textFieldTel.setColumns(10);
+		panelTel.add(textFieldTel);
 		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("New radio button");
-		panel_11.add(rdbtnNewRadioButton_3);
 		
-		JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("New radio button");
-		panel_11.add(rdbtnNewRadioButton_4);
+		//MAIL
+		JPanel panelMail = new JPanel();
+		panelMail.setOpaque(false);
+		mainPanel.add(panelMail);
+		panelMail.setLayout(new GridLayout(0, 1, 0, 0));
+		panelMail.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
-		JPanel panel_12 = new JPanel();
-		panel.add(panel_12);
+		JLabel lblMail = new JLabel("Mail : ");
+		lblMail.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelMail.add(lblMail);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel_12.add(btnNewButton);
+		textFieldMail = new JTextField();
+		textFieldMail.setColumns(10);
+		panelMail.add(textFieldMail);
 		
-		JButton Annuler = new JButton("Annuler");
-		panel_12.add(Annuler);
+		
+		//PAYEMENT
+		JPanel panelPayement = new JPanel();
+		Border borderPayement = BorderFactory.createTitledBorder(new LineBorder(new Color(0, 0, 0), 1), 
+				"Moyen de Paiement", 0, 0, new Font("Ebrima", Font.BOLD, 15));
+		panelPayement.setBorder(borderPayement);
+		panelPayement.setOpaque(false);
+		mainPanel.add(panelPayement);
+		
+		
+		rdbtnPayementCarteCredit = new JRadioButton("Carte de Crédit");
+		rdbtnPayementCarteCredit.setFont(new Font("Ebrima", Font.BOLD, 15));
+		rdbtnPayementCarteCredit.setOpaque(false);
+		rdbtnPayementCarteCredit.setSelected(true);
+		panelPayement.add(rdbtnPayementCarteCredit);
+		
+		rdbtnPayementPaypal = new JRadioButton("Paypal");
+		rdbtnPayementPaypal.setFont(new Font("Ebrima", Font.BOLD, 15));
+		rdbtnPayementPaypal.setOpaque(false);
+		panelPayement.add(rdbtnPayementPaypal);
+		
+		rdbtnPayementCheque = new JRadioButton("Chèque");
+		rdbtnPayementCheque.setFont(new Font("Ebrima", Font.BOLD, 15));
+		rdbtnPayementCheque.setOpaque(false);
+		panelPayement.add(rdbtnPayementCheque);
+		
+		ButtonGroup buttonGroupPayement = new ButtonGroup();
+		buttonGroupPayement.add(rdbtnPayementCarteCredit);
+		buttonGroupPayement.add(rdbtnPayementPaypal);
+		buttonGroupPayement.add(rdbtnPayementCheque);
+		
+		
+		//NEWSLETTER
+		JPanel panelNewsletter = new JPanel();
+		Border borderNewsletter = BorderFactory.createTitledBorder(new LineBorder(new Color(0, 0, 0), 1), 
+				"Abonnement à notre Newsletter", 0, 0, new Font("Ebrima", Font.BOLD, 15));
+		panelNewsletter.setBorder(borderNewsletter);
+		panelNewsletter.setOpaque(false);
+		mainPanel.add(panelNewsletter);
+		
+		rdbtnNewsletterOui = new JRadioButton("Oui");
+		rdbtnNewsletterOui.setFont(new Font("Ebrima", Font.BOLD, 15));
+		rdbtnNewsletterOui.setOpaque(false);
+		rdbtnNewsletterOui.setSelected(true);
+		panelNewsletter.add(rdbtnNewsletterOui);
+		
+		rdbtnNewsletterNon = new JRadioButton("Non");
+		rdbtnNewsletterNon.setFont(new Font("Ebrima", Font.BOLD, 15));
+		rdbtnNewsletterNon.setOpaque(false);
+		panelNewsletter.add(rdbtnNewsletterNon);
+		
+		ButtonGroup buttonGroupNewsletter = new ButtonGroup();
+		buttonGroupNewsletter.add(rdbtnNewsletterOui);
+		buttonGroupNewsletter.add(rdbtnNewsletterNon);
+		
+		
+		//Panel du bas avec les boutons
+		JPanel panelBouton = new JPanel();
+		panelPrincipal.add(panelBouton, BorderLayout.SOUTH);
+		
+		JButton btnValider = new JButton("New button");
+		panelBouton.add(btnValider);
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		panelBouton.add(btnAnnuler);
 	}
 
 }

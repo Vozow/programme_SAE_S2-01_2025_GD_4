@@ -86,6 +86,13 @@ public class Panier {
 		}
 		return total;
 	}
+
+
+	public void vider() {
+		for(int i = this.listePanier.size() - 1; i >= 0; i--) {
+			this.listePanier.remove(0);
+		}
+	}
 	
 	
 }
