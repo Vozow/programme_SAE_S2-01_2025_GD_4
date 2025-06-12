@@ -17,6 +17,9 @@ public class Panier {
 		return this.listePanier.size();
 	}
 	
+	public boolean isEmpty() {
+		return this.listePanier.size() == 0;
+	}
 	
 	public int getNbDeUnTypeDeTomate(Tomate tomate) {
 		int nombreDeTomateDuType = 0;
@@ -27,9 +30,9 @@ public class Panier {
 	}
 	
 	
-	public List<Tomate> getTomatesPresentes(List<Tomate> tomates){
+	public List<Tomate> getTomatesPresentes(Tomates tomates){
 		List<Tomate> tomatesPresentes = new ArrayList<Tomate>();
-		for(Tomate tomate : tomates) {
+		for(Tomate tomate : tomates.getTomates()) {
 			if(this.listePanier.contains(tomate)) tomatesPresentes.add(tomate);
 		}
 		return tomatesPresentes;
@@ -66,13 +69,13 @@ public class Panier {
 	
 	
 	public float getPrixDeUnTypeDeTomate(Tomate tomate) {
-		float total = 0;
+		int total = 0;
 		for(int i = 0; i < this.listePanier.size(); i++) {
 			if(this.listePanier.get(i) == tomate) {
-				total =+ tomate.getPrixTTC();
+				total++;
 			}
 		}
-		return total;
+		return total * tomate.getPrixTTC();
 	}
 	
 	

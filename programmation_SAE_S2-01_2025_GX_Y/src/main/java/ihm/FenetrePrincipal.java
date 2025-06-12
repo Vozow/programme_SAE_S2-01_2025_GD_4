@@ -190,9 +190,11 @@ public class FenetrePrincipal extends JFrame {
 	private void btnPanierAppuye() {
 		btnPanier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FenetrePanier fenPanier = new FenetrePanier(FenetrePrincipal.this.tomates);
-				fenPanier.setVisible(true);
-				FenetrePrincipal.this.actualiserBtnPanier();
+				if(!FenetrePrincipal.panier.isEmpty()) {
+					FenetrePanier fenPanier = new FenetrePanier(FenetrePrincipal.this.tomates);
+					fenPanier.setVisible(true);
+					FenetrePrincipal.this.actualiserBtnPanier();
+				}
 			}
 		});
 	}
