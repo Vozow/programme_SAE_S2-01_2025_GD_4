@@ -1,19 +1,12 @@
 package ihm;
-
-import java.awt.BorderLayout;
-
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import modèle.OutilsBaseDonneesTomates;
 import modèle.Tomates;
-
-import java.awt.FlowLayout;
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.Component;
 import java.awt.Font;
