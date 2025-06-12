@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 
-public class Fenetre_Coordonnées extends JFrame {
+public class FenetreCoordonnées extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -33,7 +33,7 @@ public class Fenetre_Coordonnées extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Fenetre_Coordonnées frame = new Fenetre_Coordonnées();
+					FenetreCoordonnées frame = new FenetreCoordonnées();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class Fenetre_Coordonnées extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Fenetre_Coordonnées() {
+	public FenetreCoordonnées() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 
 public class FenetrePrincipal extends JFrame {
 
@@ -44,15 +45,18 @@ public class FenetrePrincipal extends JFrame {
 	
 	private String toutesTomates = "Toutes les Tomates (63)";
 	private String toutesCouleurs = "Toutes les Couleurs";
-	/**
-	 * Launch the application.
-	 */
+	
+	private DecimalFormat df = new DecimalFormat("0.00");
+
+	public static Panier panier;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					//Initialisation de la base de donnée
 					Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("./src/main/resources/data/tomates.json");
+					FenetrePrincipal.panier = new Panier();
 					//Initialisation de la fenetre
 					FenetrePrincipal fenPrincipal = new FenetrePrincipal(tomates);
 					fenPrincipal.setVisible(true);
@@ -174,10 +178,17 @@ public class FenetrePrincipal extends JFrame {
 		conseilPanel.add(btnConseil, BorderLayout.EAST);
 		
 		//Actualisation du bouton panier
-		
+		this.actualiserBtnPanier();
 		
 		//Actualisation de la table tableTomates
 		this.actualiserListTomates();
+	}
+
+	
+	//Fonction qui actualise la Liste de tomate en fonction du Panier
+	private void actualiserBtnPanier() {
+		float prixTotal = FenetrePrincipal.panier.getPrixTotal();
+		FenetrePrincipal.this.btnPanier.setText(df.format(prixTotal) + "€");
 	}
 
 
@@ -191,6 +202,7 @@ public class FenetrePrincipal extends JFrame {
 					FenetrePrincipal.this.tomateSelectionnée = FenetrePrincipal.this.listTomates.getSelectedValue();
 					FenetreProduit fenProduit = new FenetreProduit(FenetrePrincipal.this.tomateSelectionnée);
 					fenProduit.setVisible(true);
+					FenetrePrincipal.this.actualiserBtnPanier();
 				}
 			}
 		});

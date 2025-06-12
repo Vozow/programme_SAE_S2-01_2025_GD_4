@@ -2,6 +2,7 @@ package ihm;
 import modèle.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.BorderLayout;
@@ -17,10 +18,14 @@ import java.text.DecimalFormat;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JTextArea;
+import javax.swing.JViewport;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.BoxLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionListener;
@@ -30,32 +35,45 @@ public class FenetreProduit extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 		
-	private JPanel contentPane;
+	private JPanel Pane;
 	
 	private JSpinner spinnerQteAchat;
 	private JLabel lblPrixTotal;
 	private Tomate tomate;
 	private JComboBox<String> comboBoxTomateSuggerer;
 	private DecimalFormat df = new DecimalFormat("0.00");
-
+	
 	public FenetreProduit(Tomate tomate) {
 		
 		this.tomate = tomate; 
-	
-		//Parametre princiapl
+
+		//Parametre principal
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 600, 550);
+		setBounds(100, 100, 550, 600);
 		setModal(true);;
 		setTitle("O'Tomates - " + tomate.getDésignation());
 		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
 		
+		Pane = new JPanel();
+		setContentPane(Pane);
+		Pane.setLayout(new BorderLayout(0, 0));
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		Pane.add(scrollPane, BorderLayout.CENTER);
+		
 		//Border Layout principal
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel(){
+			private static final long serialVersionUID = 1L;
+			@Override
+		    public Dimension getPreferredSize() {
+		    	return new Dimension(((JViewport) getParent()).getWidth(), super.getPreferredSize().height);
+		    }
+		};
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		scrollPane.setViewportView(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		
+
 		//Création du titre de la tomate
 		JLabel lblTitlePanel = new JLabel(tomate.getDésignation());
 		lblTitlePanel.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
@@ -77,16 +95,15 @@ public class FenetreProduit extends JDialog {
 		mainPanel.add(infoPanel);
 		infoPanel.setOpaque(false);
 		infoPanel.setBorder(new LineBorder(new Color(100, 100, 120), 1));
-		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.X_AXIS));
+		infoPanel.setLayout(new BorderLayout(0, 0));
 		
 		//Création de l'image de la tomate
 		JLabel lblImageTomate = new JLabel();
-		lblImageTomate.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblImageTomate.setVerticalAlignment(SwingConstants.TOP);
+		lblImageTomate.setVerticalAlignment(SwingConstants.CENTER);
 		lblImageTomate.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Tomates200x200\\" + tomate.getNomImage() + ".jpg"));
 		lblImageTomate.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImageTomate.setBorder(new EmptyBorder(10, 10, 10, 10));
-		infoPanel.add(lblImageTomate);
+		infoPanel.add(lblImageTomate, BorderLayout.WEST);
 		
 		//Création de la description
 		JTextArea TextAreaDescription = new JTextArea(tomate.getDescription());
@@ -96,7 +113,8 @@ public class FenetreProduit extends JDialog {
 		TextAreaDescription.setLineWrap(true);
 		TextAreaDescription.setWrapStyleWord(true);
 		TextAreaDescription.setOpaque(false);
-		infoPanel.add(TextAreaDescription);
+		TextAreaDescription.setPreferredSize(null);
+		infoPanel.add(TextAreaDescription, BorderLayout.CENTER);
 
 		
 		//Création du label stock
@@ -229,7 +247,8 @@ public class FenetreProduit extends JDialog {
 		btnAjout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FenetreProduit.this.tomate.setStock(tomate.getStock()-(int) FenetreProduit.this.spinnerQteAchat.getValue());
-				//A FAIRE : SYSTEME DE PANIER
+				FenetrePrincipal.panier.addTomate(FenetreProduit.this.tomate, (int) FenetreProduit.this.spinnerQteAchat.getValue());
+				
 				//A FAIRE : LIASON VIA LE FICHIER JSON
 				FenetreProduit.this.dispose();
 			}
