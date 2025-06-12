@@ -106,6 +106,7 @@ public class FenetrePrincipal extends JFrame {
 		
 		//Création du bouton Panier
 		this.btnPanier = new JButton("-.--€");
+		btnPanierAppuye();
 		btnPanier.setFont(new Font("Ebrima", Font.BOLD, 15));
 		btnPanier.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\buy_resize2.png"));
 		headpanel.add(btnPanier, BorderLayout.EAST);
@@ -184,14 +185,24 @@ public class FenetrePrincipal extends JFrame {
 		this.actualiserListTomates();
 	}
 
+
+	//Fonction appeler lorsque le bouton panier est appuyé
+	private void btnPanierAppuye() {
+		btnPanier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetrePanier fenPanier = new FenetrePanier(FenetrePrincipal.this.tomates);
+				fenPanier.setVisible(true);
+				FenetrePrincipal.this.actualiserBtnPanier();
+			}
+		});
+	}
+
 	
 	//Fonction qui actualise la Liste de tomate en fonction du Panier
 	private void actualiserBtnPanier() {
 		float prixTotal = FenetrePrincipal.panier.getPrixTotal();
 		FenetrePrincipal.this.btnPanier.setText(df.format(prixTotal) + "€");
 	}
-
-
 
 
 	private void doubleClickList() {
@@ -209,7 +220,6 @@ public class FenetrePrincipal extends JFrame {
 	}
 
 
-
 	//Fonction appeler lorsque le type de tomate choisi de la comboBox change
 	private void changementTypeTomate() {
 		this.comboBoxFiltreType.addActionListener(new ActionListener() {
@@ -224,7 +234,6 @@ public class FenetrePrincipal extends JFrame {
 	}
 
 
-
 	//Fonction appeler lorsque la couleur choisi de la comboBox change
 	private void changementCouleur() {
 		this.comboBoxFiltreCouleur.addActionListener(new ActionListener() {
@@ -237,7 +246,6 @@ public class FenetrePrincipal extends JFrame {
 			}
 		});
 	}
-	
 	
 	
 	//Fonction qui actualise la Liste de tomate en fonction des comboBox
@@ -278,4 +286,5 @@ public class FenetrePrincipal extends JFrame {
 		}
 	}
 
+	
 }

@@ -1,82 +1,67 @@
 package ihm;
-
-import java.awt.EventQueue;
 import java.awt.Font;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import modèle.Couleur;
-import modèle.Tomate;
-import modèle.Tomates;
-import modèle.TypeTomate;
-
 import java.awt.BorderLayout;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JList;
-
-import java.awt.Color;
-
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.BoxLayout;
+import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import modèle.Tomates;
 
-public class FenetrePanier extends JFrame {
+public class FenetrePanier extends JDialog {
 
+	
 	private static final long serialVersionUID = 1L;
-	private JTable table;
-	
+	private JPanel contentPane;
+	private JTable tablePanier;
 
-	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FenetrePanier frame = new FenetrePanier();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public FenetrePanier() {
-		getContentPane().setLayout(new BorderLayout(0, 0));
+	public FenetrePanier(Tomates tomates) {
+		//Parametre principal
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 550, 600);
+		setModal(true);;
+		setTitle("O'Tomates - Panier");
+		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
 		
-		JLabel lblNewLabel = new JLabel("Votre Panier");
-		getContentPane().add(lblNewLabel, BorderLayout.NORTH);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 28));
-		lblNewLabel.setForeground(new Color(0, 128, 0));
-		lblNewLabel.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
+		//Panel principal
+		contentPane = new JPanel();
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
+		//Scroll pane pour le tableau
 		JScrollPane scrollPane = new JScrollPane();
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		//Titre de la page
+		JLabel lblTitlePanel = new JLabel("Votre Panier");
+		contentPane.add(lblTitlePanel, BorderLayout.NORTH);
+		lblTitlePanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		lblTitlePanel.setFont(new Font("Ebrima", Font.BOLD, 25));
+		lblTitlePanel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitlePanel.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
+		
+		//Tableau du panier
+		tablePanier = new JTable();
+		tablePanier.setBorder(new EmptyBorder(10, 10, 10, 10));
+		tablePanier.setFont(new Font("Ebrima", Font.BOLD, 25));
+		tablePanier.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"", "Produit", "Prix Unitaire", "Quantit\u00E9", "Prix Total"},
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column", "New column"
+				"Image", "Produit", "Prix Unitaire", "Quantité", "Prix Total"
 			}
 		));
-		getContentPane().add(table, BorderLayout.SOUTH);
+		scrollPane.setViewportView(tablePanier);
+		
+		
+		
+		
 	}
 		
 }
