@@ -41,13 +41,11 @@ public class FenetreProduit extends JDialog {
 	private Tomate tomate;
 	private JComboBox<String> comboBoxTomateSuggerer;
 	private DecimalFormat df = new DecimalFormat("0.00");
-	
 
 	//Préparation de la fenetre
 	public FenetreProduit(Tomate tomate) {
 
 		this.tomate = tomate; 
-
 		//Parametre principal
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 600);
@@ -249,8 +247,6 @@ public class FenetreProduit extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				FenetreProduit.this.tomate.setStock(tomate.getStock()-(int) FenetreProduit.this.spinnerQteAchat.getValue());
 				FenetrePrincipal.panier.addTomate(FenetreProduit.this.tomate, (int) FenetreProduit.this.spinnerQteAchat.getValue());
-				
-				//A FAIRE : LIASON VIA LE FICHIER JSON
 				FenetreProduit.this.dispose();
 			}
 		});

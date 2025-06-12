@@ -1,0 +1,79 @@
+package ihm;
+
+import java.awt.BorderLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import modèle.OutilsBaseDonneesTomates;
+import modèle.Tomates;
+
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+
+public class FenetreReset extends JDialog {
+	
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	
+	public FenetreReset() {
+		//Parametre principal
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 300, 200);
+		setModal(true);
+		setTitle("O'Tomates - Panier");
+		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
+		
+		//Panel principal
+		contentPane = new JPanel();
+		setContentPane(contentPane);
+		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
+		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblTxt = new JLabel("Voulez-vous reinitialiser la base de données ?");
+		lblTxt.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTxt.setFont(new Font("Ebrima", Font.BOLD, 12));
+		lblTxt.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contentPane.add(lblTxt);
+		
+		JPanel panelBouton = new JPanel();
+		contentPane.add(panelBouton);
+		
+		JButton btnNon = new JButton("Non");
+		btnNonAppuyé(btnNon);
+		btnNon.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelBouton.add(btnNon);
+		
+		JButton btnOui = new JButton("Oui");
+		btnOui.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("./src/main/resources/data/tomatesSauvegarde.json");
+				OutilsBaseDonneesTomates.sauvegarderBaseDeTomates(tomates, "./src/main/resources/data/tomates.json");
+				FenetreReset.this.dispose();
+			}
+		});
+		btnOui.setFont(new Font("Ebrima", Font.BOLD, 15));
+		panelBouton.add(btnOui);
+		
+
+	}
+
+	private void btnNonAppuyé(JButton btnNon) {
+		btnNon.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetreReset.this.dispose();
+			}
+		});
+	}
+}

@@ -52,6 +52,9 @@ public class FenetrePrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					//Page demandant si on veux reset la base de données
+					FenetreReset fenReset = new FenetreReset();
+					fenReset.setVisible(true);
 					//Initialisation de la base de donnée
 					Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("./src/main/resources/data/tomates.json");
 					FenetrePrincipal.panier = new Panier();
@@ -211,6 +214,7 @@ public class FenetrePrincipal extends JFrame {
 					FenetreProduit fenProduit = new FenetreProduit(FenetrePrincipal.this.tomateSelectionnée);
 					fenProduit.setVisible(true);
 					FenetrePrincipal.this.actualiserBtnPanier();
+					OutilsBaseDonneesTomates.sauvegarderBaseDeTomates(FenetrePrincipal.this.tomates, "./src/main/resources/data/tomates.json");
 				}
 			}
 		});

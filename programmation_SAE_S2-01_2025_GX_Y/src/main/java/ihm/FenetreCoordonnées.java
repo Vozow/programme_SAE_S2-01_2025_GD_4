@@ -96,7 +96,9 @@ public class FenetreCoordonnées extends JDialog {
 		panelNom.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel lblNom = new JLabel("Nom : ");
+		lblNom.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\identity_resize2.png"));
 		lblNom.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblNom.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelNom.add(lblNom);
 		
 		textFieldNom = new JTextField();
@@ -112,7 +114,9 @@ public class FenetreCoordonnées extends JDialog {
 		panelPrenom.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel lblPrenom = new JLabel("Prénom : ");
+		lblPrenom.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\identity_resize2.png"));
 		lblPrenom.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblPrenom.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelPrenom.add(lblPrenom);
 		
 		textFieldPrenom = new JTextField();
@@ -128,7 +132,9 @@ public class FenetreCoordonnées extends JDialog {
 		panelAdresse1.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel lblAdresse1 = new JLabel("Adresse 1 : ");
+		lblAdresse1.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\adress_resize2.png"));
 		lblAdresse1.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblAdresse1.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelAdresse1.add(lblAdresse1);
 		
 		textFieldAdresse1 = new JTextField();
@@ -144,7 +150,9 @@ public class FenetreCoordonnées extends JDialog {
 		panelAdresse2.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel lblAdresse2 = new JLabel("Adresse 2 : ");
+		lblAdresse2.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\adress_resize2.png"));
 		lblAdresse2.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblAdresse2.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelAdresse2.add(lblAdresse2);
 		
 		textFieldAdresse2 = new JTextField();
@@ -160,7 +168,9 @@ public class FenetreCoordonnées extends JDialog {
 		panelCP.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel lblCP = new JLabel("Code postal : ");
+		lblCP.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\letterbox_resize2.png"));
 		lblCP.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblCP.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelCP.add(lblCP);
 		
 		textFieldCP = new JTextField();
@@ -176,7 +186,9 @@ public class FenetreCoordonnées extends JDialog {
 		panelVille.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel lblVille = new JLabel("Ville : ");
+		lblVille.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\city_resize2.png"));
 		lblVille.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblVille.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelVille.add(lblVille);
 		
 		textFieldVille = new JTextField();
@@ -192,7 +204,9 @@ public class FenetreCoordonnées extends JDialog {
 		panelTel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel lblTel = new JLabel("Téléphone : ");
+		lblTel.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\phone_resize2.png"));
 		lblTel.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblTel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelTel.add(lblTel);
 		
 		textFieldTel = new JTextField();
@@ -208,7 +222,9 @@ public class FenetreCoordonnées extends JDialog {
 		panelMail.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
 		JLabel lblMail = new JLabel("Mail : ");
+		lblMail.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\mail_resize2.png"));
 		lblMail.setFont(new Font("Ebrima", Font.BOLD, 15));
+		lblMail.setBorder(new EmptyBorder(5, 5, 5, 5));
 		panelMail.add(lblMail);
 		
 		textFieldMail = new JTextField();

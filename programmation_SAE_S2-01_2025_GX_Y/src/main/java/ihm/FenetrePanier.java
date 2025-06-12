@@ -18,6 +18,7 @@ import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import modèle.OutilsBaseDonneesTomates;
 import modèle.Tomate;
 import modèle.Tomates;
 import java.awt.Component;
@@ -50,7 +51,7 @@ public class FenetrePanier extends JDialog {
 		//Parametre principal
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 600);
-		setModal(true);;
+		setModal(true);
 		setTitle("O'Tomates - Panier");
 		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
 		
@@ -164,7 +165,7 @@ public class FenetrePanier extends JDialog {
 		
 		//Création du label contenant le nombre de graine
 		JLabel lblFraisLivrarison = new JLabel("Frais de livraison : 5,50€");
-		lblFraisLivrarison.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\seed_resize2.png"));
+		lblFraisLivrarison.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\truck_resize2.png"));
 		lblFraisLivrarison.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFraisLivrarison.setFont(new Font("Ebrima", Font.ITALIC, 14));
 		lblFraisLivrarison.setBorder(new EmptyBorder(0, 10, 10, 10));
@@ -234,15 +235,18 @@ public class FenetrePanier extends JDialog {
 	private void btnSupprimerAppuyé(JButton btnSupprimer) {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FenetrePanier.this.tomateSelectionnée.setStock(FenetrePanier.this.tomateSelectionnée.getStock() + 
-						FenetrePrincipal.panier.getNbDeUnTypeDeTomate(FenetrePanier.this.tomateSelectionnée));
-				FenetrePrincipal.panier.deleteTomate(tomateSelectionnée);
-				FenetrePanier.this.actualiserTableauPanier();
-				FenetrePanier.this.actualiserTotal();
-				FenetrePanier.this.tomateSelectionnée = null;
-				FenetrePanier.this.lblNbTomateSelectionné.setText("-");
-				FenetrePanier.this.lblNomTomateSelectionné.setText("Aucune ligne selectionnée"); 
-				if(FenetrePrincipal.panier.isEmpty()) FenetrePanier.this.dispose();
+				if(FenetrePanier.this.tomateSelectionnée != null) {
+					FenetrePanier.this.tomateSelectionnée.setStock(FenetrePanier.this.tomateSelectionnée.getStock() + 
+							FenetrePrincipal.panier.getNbDeUnTypeDeTomate(FenetrePanier.this.tomateSelectionnée));
+					FenetrePrincipal.panier.deleteTomate(tomateSelectionnée);
+					FenetrePanier.this.actualiserTableauPanier();
+					FenetrePanier.this.actualiserTotal();
+					FenetrePanier.this.tomateSelectionnée = null;
+					FenetrePanier.this.lblNbTomateSelectionné.setText("-");
+					FenetrePanier.this.lblNomTomateSelectionné.setText("Aucune ligne selectionnée"); 
+					OutilsBaseDonneesTomates.sauvegarderBaseDeTomates(FenetrePanier.this.tomates, "./src/main/resources/data/tomates.json");
+					if(FenetrePrincipal.panier.isEmpty()) FenetrePanier.this.dispose();
+				}
 			}
 		});
 	}
@@ -266,6 +270,7 @@ public class FenetrePanier extends JDialog {
 						FenetrePanier.this.lblNbTomateSelectionné.setText("-");
 						FenetrePanier.this.lblNomTomateSelectionné.setText("Aucune ligne selectionnée"); 
 						FenetrePanier.this.actualiserTotal();
+						OutilsBaseDonneesTomates.sauvegarderBaseDeTomates(FenetrePanier.this.tomates, "./src/main/resources/data/tomates.json");
 						if(FenetrePrincipal.panier.isEmpty()) FenetrePanier.this.dispose();
 					}
 				}
@@ -273,7 +278,7 @@ public class FenetrePanier extends JDialog {
 		});
 	}
 
-
+	//Lorsque le bouton Ajouter est appuyé
 	private void btnAjouterAppuyé(JButton btnAjouter) {
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -283,14 +288,15 @@ public class FenetrePanier extends JDialog {
 						FenetrePrincipal.panier.addTomate(tomateSelectionnée, 1);
 						FenetrePanier.this.lblNbTomateSelectionné.setText(String.valueOf(FenetrePrincipal.panier.getNbDeUnTypeDeTomate(tomateSelectionnée)));
 						FenetrePanier.this.actualiserTableauPanier();
-						FenetrePanier.this.actualiserTotal();						
+						FenetrePanier.this.actualiserTotal();	
+						OutilsBaseDonneesTomates.sauvegarderBaseDeTomates(FenetrePanier.this.tomates, "./src/main/resources/data/tomates.json");
 					}
 				}
 			}
 		});
 	}
 
-
+	//Actualise le total et soustotal du panier
 	private void actualiserTotal() {
 		this.lblTotal.setText("Total : " + df.format(FenetrePrincipal.panier.getPrixTotal() + 5.5f) + "€");
 		this.lblSousTotal.setText("Sous-Total : " + df.format(FenetrePrincipal.panier.getPrixTotal()) + "€");
@@ -356,6 +362,7 @@ public class FenetrePanier extends JDialog {
 			});
 		}
 		this.tablePanier.setModel(modeleTable);	
+		this.tablePanier.getColumnModel().getColumn(0).setMinWidth(200);
 	}
 		
 }
