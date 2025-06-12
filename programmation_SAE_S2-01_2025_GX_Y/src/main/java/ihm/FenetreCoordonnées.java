@@ -5,11 +5,14 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import modèle.Tomates;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.SystemColor;
 import java.awt.TextField;
 
 import javax.swing.JLabel;
@@ -23,6 +26,8 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FenetreCoordonnées extends JDialog {
 
@@ -31,7 +36,7 @@ public class FenetreCoordonnées extends JDialog {
 	private JPanel contentPane;
 	private JTextField textFieldNom;
 	private JTextField textFieldPrenom;
-	private JTextField textFieldAdress1;
+	private JTextField textFieldAdresse1;
 	private JTextField textFieldAdresse2;
 	private JTextField textFieldCP;
 	private JTextField textFieldVille;
@@ -43,8 +48,9 @@ public class FenetreCoordonnées extends JDialog {
 	private JRadioButton rdbtnNewsletterOui;
 	private JRadioButton rdbtnNewsletterNon;
 
+	private Tomates tomates;
 	
-	public FenetreCoordonnées() {
+	public FenetreCoordonnées(Tomates tomates) {
 		//Parametre principal
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 600);
@@ -129,9 +135,9 @@ public class FenetreCoordonnées extends JDialog {
 		lblAdresse1.setFont(new Font("Ebrima", Font.BOLD, 15));
 		panelAdresse1.add(lblAdresse1);
 		
-		textFieldAdress1 = new JTextField();
-		textFieldAdress1.setColumns(10);
-		panelAdresse1.add(textFieldAdress1);
+		textFieldAdresse1 = new JTextField();
+		textFieldAdresse1.setColumns(10);
+		panelAdresse1.add(textFieldAdresse1);
 		
 		
 		//ADRESSE2
@@ -273,11 +279,43 @@ public class FenetreCoordonnées extends JDialog {
 		JPanel panelBouton = new JPanel();
 		panelPrincipal.add(panelBouton, BorderLayout.SOUTH);
 		
-		JButton btnValider = new JButton("New button");
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnulerAppuyé(btnAnnuler);
+		btnAnnuler.setBackground(SystemColor.activeCaption);
+		panelBouton.add(btnAnnuler);
+		
+		JButton btnValider = new JButton("Valider");
+		btnValiderAppuyé(btnValider);
+		btnValider.setBackground(SystemColor.activeCaption);
 		panelBouton.add(btnValider);
 		
-		JButton btnAnnuler = new JButton("Annuler");
-		panelBouton.add(btnAnnuler);
+	}
+
+
+	private void btnAnnulerAppuyé(JButton btnAnnuler) {
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetreCoordonnées.this.dispose();
+			}
+		});
+	}
+
+
+	private void btnValiderAppuyé(JButton btnValider) {
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetreCoordonnées.this.dispose();
+				String moyenPaiement;
+				if(FenetreCoordonnées.this.rdbtnPayementCarteCredit.isSelected()) moyenPaiement = "Carte de Crédit";
+				else if(FenetreCoordonnées.this.rdbtnPayementCheque.isSelected()) moyenPaiement = "Chèque";
+				else moyenPaiement = "Paypal";
+				FenetreFacture fenFacture = new FenetreFacture(FenetreCoordonnées.this.textFieldNom.getText(), FenetreCoordonnées.this.textFieldPrenom.getText(),
+						FenetreCoordonnées.this.textFieldAdresse1.getText(), FenetreCoordonnées.this.textFieldCP.getText(),
+						FenetreCoordonnées.this.textFieldVille.getText(), FenetreCoordonnées.this.textFieldTel.getText(), 
+						FenetreCoordonnées.this.textFieldMail.getText(), moyenPaiement, FenetreCoordonnées.this.tomates);
+				fenFacture.setVisible(true);
+			}
+		});
 	}
 
 }

@@ -210,9 +210,10 @@ public class FenetrePanier extends JDialog {
 		JButton btnValider = new JButton("Valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				FenetrePanier.this.dispose();
 				FenetrePanier.this.actualiserTableauPanier();
 				FenetrePanier.this.actualiserTotal();
-				FenetreCoordonnées fenCoord = new FenetreCoordonnées();
+				FenetreCoordonnées fenCoord = new FenetreCoordonnées(FenetrePanier.this.tomates);
 				fenCoord.setVisible(true);
 			}
 		});

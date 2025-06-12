@@ -44,7 +44,7 @@ public class FenetreProduit extends JDialog {
 	private DecimalFormat df = new DecimalFormat("0.00");
 	
 	public FenetreProduit(Tomate tomate) {
-		
+
 		this.tomate = tomate; 
 
 		//Parametre principal

@@ -49,6 +49,7 @@ public class FenetrePrincipal extends JFrame {
 	private DecimalFormat df = new DecimalFormat("0.00");
 
 	public static Panier panier;
+	public static boolean exit;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
