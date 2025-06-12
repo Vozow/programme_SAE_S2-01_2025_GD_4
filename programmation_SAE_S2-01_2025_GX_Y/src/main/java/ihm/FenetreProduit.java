@@ -33,16 +33,17 @@ import java.awt.event.ActionEvent;
 
 public class FenetreProduit extends JDialog {
 
-	private static final long serialVersionUID = 1L;
-		
-	private JPanel Pane;
 	
+	private static final long serialVersionUID = 1L;
+	private JPanel Pane;
 	private JSpinner spinnerQteAchat;
 	private JLabel lblPrixTotal;
 	private Tomate tomate;
 	private JComboBox<String> comboBoxTomateSuggerer;
 	private DecimalFormat df = new DecimalFormat("0.00");
 	
+
+	//Préparation de la fenetre
 	public FenetreProduit(Tomate tomate) {
 
 		this.tomate = tomate; 
@@ -210,8 +211,8 @@ public class FenetreProduit extends JDialog {
 		boutonAchatAppuye(btnAjout);
 		btnAjout.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAjout.setForeground(new Color(0, 0, 0));
-		btnAjout.setBackground(SystemColor.activeCaption);
 		btnAjout.setBorder(new EmptyBorder(10, 10, 10, 10));
+		btnAjout.setBackground(SystemColor.activeCaption);
 		bottomPanel.add(btnAjout);
 		
 		//Création du bouton annuler

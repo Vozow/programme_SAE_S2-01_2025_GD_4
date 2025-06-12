@@ -4,17 +4,12 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-
 import modèle.Tomates;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
-import java.awt.TextField;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -47,13 +42,14 @@ public class FenetreCoordonnées extends JDialog {
 	private JRadioButton rdbtnPayementCheque;
 	private JRadioButton rdbtnNewsletterOui;
 	private JRadioButton rdbtnNewsletterNon;
-
+	
 	private Tomates tomates;
 	
 	public FenetreCoordonnées(Tomates tomates) {
+		this.tomates = tomates;
 		//Parametre principal
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 550, 600);
+		setBounds(100, 100, 550, 900);
 		setModal(true);;
 		setTitle("O'Tomates - Panier");
 		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
@@ -68,7 +64,7 @@ public class FenetreCoordonnées extends JDialog {
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
-		//panel princiapl
+		//panel principal
 		JPanel panelPrincipal = new JPanel();
 		panelPrincipal.setLayout(new BorderLayout(0, 0));
 		panelPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -291,7 +287,7 @@ public class FenetreCoordonnées extends JDialog {
 		
 	}
 
-
+	//Lorsque le bouton Annuler est appuyé
 	private void btnAnnulerAppuyé(JButton btnAnnuler) {
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -300,7 +296,7 @@ public class FenetreCoordonnées extends JDialog {
 		});
 	}
 
-
+	//Lorsque le bouton Valider est appuyé
 	private void btnValiderAppuyé(JButton btnValider) {
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -318,4 +314,5 @@ public class FenetreCoordonnées extends JDialog {
 		});
 	}
 
+	
 }

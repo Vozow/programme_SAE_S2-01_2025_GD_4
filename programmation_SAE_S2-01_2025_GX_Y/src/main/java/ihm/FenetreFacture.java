@@ -3,7 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.SystemColor;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -12,16 +12,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-
 import modèle.Tomate;
 import modèle.Tomates;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
 import java.awt.print.PageFormat;
@@ -31,8 +29,10 @@ import java.awt.print.PrinterJob;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.awt.event.ActionEvent;
+import java.awt.Component;
 
 public class FenetreFacture extends JDialog {
+	
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,12 +40,15 @@ public class FenetreFacture extends JDialog {
 	private Tomates tomates;
 	private DecimalFormat df = new DecimalFormat("0.00");
 
+	
+	//Préparation de la fenetre
 	public FenetreFacture(String nom, String prenom, String adresse1, String codePostal, 
 			String ville, String telephone, String mail, String moyenPaiement, Tomates tomates) {
+		
 		this.tomates = tomates;
 		//Parametre principal
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 550, 600);
+		setBounds(100, 100, 650, 650);
 		setTitle("O'Tomates - Panier");
 		setIconImage(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png").getImage());
 		
@@ -55,6 +58,7 @@ public class FenetreFacture extends JDialog {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
+		//Panel pour le titre et la description
 		JPanel panelTitle = new JPanel();
 		contentPane.add(panelTitle, BorderLayout.NORTH);
 		panelTitle.setLayout(new BorderLayout(0, 0));
@@ -67,11 +71,13 @@ public class FenetreFacture extends JDialog {
 		lblTitlePanel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitlePanel.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
 		
+		//Description
 		JLabel lblDescription = new JLabel("Merci de votre visite !");
 		lblDescription.setFont(new Font("Ebrima", Font.BOLD | Font.ITALIC, 15));
 		lblDescription.setHorizontalAlignment(SwingConstants.CENTER);
 		panelTitle.add(lblDescription, BorderLayout.SOUTH);
 		
+		//ScrollPane pour la page qui sera imprimé
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
 		
@@ -100,7 +106,7 @@ public class FenetreFacture extends JDialog {
 		
 		JLabel lblAdresseClient = new JLabel("Adresse : " + adresse1 + " " + codePostal + " " + ville);
 		lblAdresseClient.setFont(new Font("Ebrima", Font.BOLD | Font.ITALIC, 12));
-		lblAdresseClient.setBorder(new EmptyBorder(10, 10, 0, 10));
+		lblAdresseClient.setBorder(new EmptyBorder(0, 10, 0, 10));
 		panelFacture.add(lblAdresseClient);
 		
 		JLabel lblTelClient = new JLabel("Téléphone : " + telephone);
@@ -112,11 +118,16 @@ public class FenetreFacture extends JDialog {
 		lblMailClient.setFont(new Font("Ebrima", Font.BOLD | Font.ITALIC, 12));
 		lblMailClient.setBorder(new EmptyBorder(10, 10, 20, 10));
 		panelFacture.add(lblMailClient);
+
+		
+		JScrollPane scrollPaneTable = new JScrollPane();
+		scrollPaneTable.setAlignmentX(Component.LEFT_ALIGNMENT);
+		panelFacture.add(scrollPaneTable);
+		scrollPaneTable.setMaximumSize(new Dimension(600, scrollPaneTable.getMaximumSize().height));
+		scrollPaneTable.setMinimumSize(new Dimension(600, scrollPaneTable.getMinimumSize().height));
 		
 		//Tableau du panier
 		JTable tablePanier = new JTable();
-		tablePanier.setBorder(new LineBorder(Color.lightGray, 2));
-		panelFacture.add(tablePanier);
 		//Modele du tableau (contenu)
 		DefaultTableModel modeleTable = new DefaultTableModel();
 		modeleTable.setColumnIdentifiers(new String[] {
@@ -129,31 +140,47 @@ public class FenetreFacture extends JDialog {
 					df.format(FenetrePrincipal.panier.getPrixDeUnTypeDeTomate(tomate)) + "€"
 			});
 		}
-		tablePanier.setModel(modeleTable);	
+		tablePanier.setModel(modeleTable);
+		tablePanier.getColumnModel().getColumn(0).setMinWidth(200);
+		scrollPaneTable.setViewportView(tablePanier);	
 		
-		JLabel lblTotalCommande = new JLabel("TOTAL TTC COMMANDE : " + mail);
-		lblMailClient.setFont(new Font("Ebrima", Font.PLAIN, 14));
-		lblMailClient.setBorder(new EmptyBorder(30, 10, 15, 10));
-		panelFacture.add(lblMailClient);
+		JLabel lblTotalCommande = new JLabel("TOTAL TTC COMMANDE : " + df.format(FenetrePrincipal.panier.getPrixTotal()) + "€");
+		lblTotalCommande.setFont(new Font("Ebrima", Font.PLAIN, 14));
+		lblTotalCommande.setBorder(new EmptyBorder(30, 10, 15, 10));
+		panelFacture.add(lblTotalCommande);
 		
+		JLabel lblFraisDePort = new JLabel("FORFAIT FRAIS DE PORT : " + df.format(5.5f) + "€");
+		lblFraisDePort.setFont(new Font("Ebrima", Font.PLAIN, 14));
+		lblFraisDePort.setBorder(new EmptyBorder(15, 10, 15, 10));
+		panelFacture.add(lblFraisDePort);
+		
+		JLabel lblTotalTTC = new JLabel("PRIX TOTAL TTC : " + df.format(FenetrePrincipal.panier.getPrixTotal()+5.5f) + "€ payé par " + moyenPaiement);
+		lblTotalTTC.setFont(new Font("Ebrima", Font.BOLD, 14));
+		lblTotalTTC.setBorder(new EmptyBorder(15, 10, 15, 10));
+		panelFacture.add(lblTotalTTC);
 		
 		//FIN FACTURE -------------------------------------------------------------------
 		
-		
+		//Panel qui contient les boutons du bas
 		JPanel panelBouton = new JPanel();
 		contentPane.add(panelBouton, BorderLayout.SOUTH);
 		
+		//Bouton quitter qui fermera l'application
 		JButton btnQuitter = new JButton("Quitter");
+		btnQuitter.setBackground(SystemColor.activeCaption);
 		btnQuitterAppuyé(btnQuitter);
 		panelBouton.add(btnQuitter);
 		
+		//Bouton Imprimer qui permet d'imprimer la feuille
 		JButton btnImprimer = new JButton("Imprimer");
 		btnImprimerAppuyé(btnImprimer);
+		btnImprimer.setBackground(SystemColor.activeCaption);
 		panelBouton.add(btnImprimer);
 		
 
 	}
 
+	//Lorsque le bouton Quitter est appuyé
 	private void btnQuitterAppuyé(JButton btnQuitter) {
 		btnQuitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -163,6 +190,7 @@ public class FenetreFacture extends JDialog {
 		});
 	}
 
+	//Lorsque le bouton Imprimer est appuyé
 	private void btnImprimerAppuyé(JButton btnImprimer) {
 		btnImprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -191,9 +219,6 @@ public class FenetreFacture extends JDialog {
 			}
 		});
 	}
-	
-	
-	
 	
 		
 }

@@ -1,5 +1,4 @@
 package ihm;
-
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -28,29 +27,27 @@ import java.text.DecimalFormat;
 
 public class FenetrePrincipal extends JFrame {
 
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = 1L;
 	private Tomates tomates;
 	private JPanel contentPane;
 	private DefaultListModel<Tomate> modeleList;
-	
 	private JButton btnPanier;
 	private JComboBox<String> comboBoxFiltreType;
 	private JComboBox<String> comboBoxFiltreCouleur;
 	private JList<Tomate> listTomates;
-	
 	private Tomate tomateSelectionnée;
 	private Couleur couleurActuelle;
 	private TypeTomate typeActuel;
-	
 	private String toutesTomates = "Toutes les Tomates (63)";
 	private String toutesCouleurs = "Toutes les Couleurs";
-	
 	private DecimalFormat df = new DecimalFormat("0.00");
 
 	public static Panier panier;
 	public static boolean exit;
 	
+	
+	//Fonction qui démarre l'application
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -69,11 +66,7 @@ public class FenetrePrincipal extends JFrame {
 	}
 
 	
-	
-	
-	/**
-	 * Create the frame.
-	 */
+	//Préparation de la fenetre
 	public FenetrePrincipal(Tomates tomates) {
 		this.tomates = tomates;
 		
@@ -163,7 +156,7 @@ public class FenetrePrincipal extends JFrame {
 		}
 		this.comboBoxFiltreCouleur.addItem(this.toutesCouleurs);
 		this.comboBoxFiltreCouleur.setBorder(new EmptyBorder(10, 10, 10, 10));
-		this.comboBoxFiltreCouleur.setSelectedItem(this.toutesCouleurs);;
+		this.comboBoxFiltreCouleur.setSelectedItem(this.toutesCouleurs);
 		changementCouleur();
 		filterPanel.add(comboBoxFiltreCouleur);
 		
@@ -208,6 +201,7 @@ public class FenetrePrincipal extends JFrame {
 	}
 
 
+	//Lorsqu'un doubleClick est effectué
 	private void doubleClickList() {
 		this.listTomates.addMouseListener(new MouseAdapter() {
 			@Override

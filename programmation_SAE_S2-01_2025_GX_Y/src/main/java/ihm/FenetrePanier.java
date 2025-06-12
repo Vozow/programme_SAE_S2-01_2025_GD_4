@@ -1,15 +1,12 @@
 package ihm;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.SystemColor;
 import java.text.DecimalFormat;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -21,7 +18,6 @@ import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
-
 import modèle.Tomate;
 import modèle.Tomates;
 import java.awt.Component;
@@ -46,7 +42,9 @@ public class FenetrePanier extends JDialog {
 	private JLabel lblNomTomateSelectionné;
 	private JLabel lblTotal;
 	private JLabel lblSousTotal;
+	
 
+	//Préparation de la fenetre
 	public FenetrePanier(Tomates tomates) {
 		this.tomates = tomates;
 		//Parametre principal
@@ -90,6 +88,7 @@ public class FenetrePanier extends JDialog {
 		southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
 		contentPane.add(southPanel, BorderLayout.SOUTH);
 
+		//Panel Principal en dessous du tableau
 		JPanel mainPanel = new JPanel();
 		mainPanel.setOpaque(true);
 		mainPanel.setBackground(Color.white);
@@ -131,6 +130,7 @@ public class FenetrePanier extends JDialog {
 		
 		//Bouton retirer
 		JButton btnSupprimer = new JButton("Supprimer cette tomate");
+		btnSupprimerAppuyé(btnSupprimer);
 		btnSupprimer.setBackground(new Color(241, 148, 138));
 		btnSupprimer.setOpaque(true);
 		btnSupprimer.setFont(new Font("Ebrima", Font.BOLD, 15));
@@ -178,16 +178,22 @@ public class FenetrePanier extends JDialog {
 		buttonPanel.setOpaque(false);
 		southPanel.add(buttonPanel);
 		
-		JButton btnAnnuler = new JButton("Annuler");
-		btnAnnuler.addActionListener(new ActionListener() {
+		//Bouton valider le panier
+		JButton btnValider = new JButton("Valider le panier");
+		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FenetrePanier.this.dispose();
+				FenetrePanier.this.actualiserTableauPanier();
+				FenetrePanier.this.actualiserTotal();
+				FenetreCoordonnées fenCoord = new FenetreCoordonnées(FenetrePanier.this.tomates);
+				fenCoord.setVisible(true);
 			}
 		});
-		btnAnnuler.setBorder(new EmptyBorder(10, 10, 10, 10));
-		btnAnnuler.setBackground(SystemColor.activeCaption);
-		buttonPanel.add(btnAnnuler);
+		btnValider.setBackground(SystemColor.activeCaption);
+		btnValider.setBorder(new EmptyBorder(10, 10, 10, 10));
+		buttonPanel.add(btnValider);
 		
+		//Bouton vider le panier
 		JButton btnVider = new JButton("Vider le panier");
 		btnVider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -207,24 +213,38 @@ public class FenetrePanier extends JDialog {
 		btnVider.setBackground(SystemColor.activeCaption);
 		buttonPanel.add(btnVider);
 
-		JButton btnValider = new JButton("Valider");
-		btnValider.addActionListener(new ActionListener() {
+		//Bouton annuler/continuer les achats
+		JButton btnAnnuler = new JButton("Continuer les achats");
+		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FenetrePanier.this.dispose();
-				FenetrePanier.this.actualiserTableauPanier();
-				FenetrePanier.this.actualiserTotal();
-				FenetreCoordonnées fenCoord = new FenetreCoordonnées(FenetrePanier.this.tomates);
-				fenCoord.setVisible(true);
 			}
 		});
-		btnValider.setBorder(new EmptyBorder(10, 10, 10, 10));
-		btnValider.setBackground(SystemColor.activeCaption);
-		buttonPanel.add(btnValider);
+		btnAnnuler.setBorder(new EmptyBorder(10, 10, 10, 10));
+		btnAnnuler.setBackground(SystemColor.activeCaption);
+		buttonPanel.add(btnAnnuler);
 
 		//Actualise le tableau panier
 		this.actualiserTableauPanier();
 		//Actualise le Prix sous-total et total
 		this.actualiserTotal();
+	}
+
+
+	private void btnSupprimerAppuyé(JButton btnSupprimer) {
+		btnSupprimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetrePanier.this.tomateSelectionnée.setStock(FenetrePanier.this.tomateSelectionnée.getStock() + 
+						FenetrePrincipal.panier.getNbDeUnTypeDeTomate(FenetrePanier.this.tomateSelectionnée));
+				FenetrePrincipal.panier.deleteTomate(tomateSelectionnée);
+				FenetrePanier.this.actualiserTableauPanier();
+				FenetrePanier.this.actualiserTotal();
+				FenetrePanier.this.tomateSelectionnée = null;
+				FenetrePanier.this.lblNbTomateSelectionné.setText("-");
+				FenetrePanier.this.lblNomTomateSelectionné.setText("Aucune ligne selectionnée"); 
+				if(FenetrePrincipal.panier.isEmpty()) FenetrePanier.this.dispose();
+			}
+		});
 	}
 
 
@@ -301,7 +321,7 @@ public class FenetrePanier extends JDialog {
 
 	//Vérifie la tomate selectionné dans le tableau
 	private void verifierValeurTableau() {
-		String nomTomateSelectionné = (String) this.tablePanier.getValueAt(this.tablePanier.getSelectedRow(), 1);
+		String nomTomateSelectionné = (String) this.tablePanier.getValueAt(this.tablePanier.getSelectedRow(), 0);
 		if(this.tomateSelectionnée == null) {
 			for(Tomate tomate : FenetrePrincipal.panier.getTomatesPresentes(this.tomates)) {
 				if(tomate.getDésignation() == nomTomateSelectionné) {
@@ -326,11 +346,9 @@ public class FenetrePanier extends JDialog {
 	private void actualiserTableauPanier() {
 		this.modeleTable = new DefaultTableModel();
 		this.modeleTable.setColumnIdentifiers(new String[] {
-					"Image", "Produit", "Prix Unitaire", "Quantité", "Prix Total"});
+					"Produit", "Prix Unitaire", "Quantité", "Prix Total"});
 		for(Tomate tomate : FenetrePrincipal.panier.getTomatesPresentes(this.tomates)) {
-			Image tomateImage = new ImageIcon(".\\src\\main\\resources\\images\\Tomates200x200\\" + tomate.getNomImage() + ".jpg").getImage();
 			this.modeleTable.addRow(new Object[] {
-					tomateImage,
 					tomate.getDésignation(),
 					df.format(tomate.getPrixTTC()) + "€",
 					FenetrePrincipal.panier.getNbDeUnTypeDeTomate(tomate),
