@@ -112,7 +112,6 @@ public class FenetreProduit extends JDialog {
 		TextAreaDescription.setLineWrap(true);
 		TextAreaDescription.setWrapStyleWord(true);
 		TextAreaDescription.setOpaque(false);
-		TextAreaDescription.setPreferredSize(null);
 		infoPanel.add(TextAreaDescription, BorderLayout.CENTER);
 
 		
@@ -206,7 +205,7 @@ public class FenetreProduit extends JDialog {
 		
 		//Création du bouton ajout au panier
 		JButton btnAjout = new JButton("Ajouter au panier");
-		boutonAchatAppuye(btnAjout);
+		boutonAchatAppuyé(btnAjout);
 		btnAjout.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAjout.setForeground(new Color(0, 0, 0));
 		btnAjout.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -215,7 +214,7 @@ public class FenetreProduit extends JDialog {
 		
 		//Création du bouton annuler
 		JButton btnAnnuler = new JButton("Annuler");
-		boutonAnnulerAppuye(btnAnnuler);
+		boutonAnnulerAppuyé(btnAnnuler);
 		btnAnnuler.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAnnuler.setBackground(SystemColor.activeCaption);
 		btnAnnuler.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -241,8 +240,8 @@ public class FenetreProduit extends JDialog {
 	}
 
 
-	//Des que le bouton achat est appuye
-	private void boutonAchatAppuye(JButton btnAjout) {
+	//Des que le bouton achat est Appuyé
+	private void boutonAchatAppuyé(JButton btnAjout) {
 		btnAjout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FenetreProduit.this.tomate.setStock(tomate.getStock()-(int) FenetreProduit.this.spinnerQteAchat.getValue());
@@ -254,7 +253,7 @@ public class FenetreProduit extends JDialog {
 
 	
 	//Des que le bouton annuler et actionner
-	private void boutonAnnulerAppuye(JButton btnAnnuler) {
+	private void boutonAnnulerAppuyé(JButton btnAnnuler) {
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FenetreProduit.this.dispose();

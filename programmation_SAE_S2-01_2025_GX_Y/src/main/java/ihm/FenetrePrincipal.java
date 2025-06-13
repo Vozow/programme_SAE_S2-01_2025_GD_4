@@ -108,7 +108,7 @@ public class FenetrePrincipal extends JFrame {
 		
 		//Création du bouton Panier
 		this.btnPanier = new JButton("-.--€");
-		btnPanierAppuye();
+		btnPanierAppuyé();
 		btnPanier.setFont(new Font("Ebrima", Font.BOLD, 15));
 		btnPanier.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\buy_resize2.png"));
 		headpanel.add(btnPanier, BorderLayout.EAST);
@@ -177,14 +177,25 @@ public class FenetrePrincipal extends JFrame {
 		
 		//Création du bouton conseil
 		JButton btnConseil = new JButton();
+		btnConseilAppuyé(btnConseil);
 		btnConseil.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\advice_resize1.png"));
-		conseilPanel.add(btnConseil, BorderLayout.EAST);
+		conseilPanel.add(btnConseil, BorderLayout.CENTER);
 		
 		//Actualisation du bouton panier
 		this.actualiserBtnPanier();
 		
 		//Actualisation de la table tableTomates
 		this.actualiserListTomates();
+	}
+
+
+	private void btnConseilAppuyé(JButton btnConseil) {
+		btnConseil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetreConseil fenConseil = new FenetreConseil();
+                fenConseil.setVisible(true);
+			}
+		});
 	}
 
 	//Quand la fenetre est fermé.
@@ -204,7 +215,7 @@ public class FenetrePrincipal extends JFrame {
 
 
 	//Fonction appeler lorsque le bouton panier est appuyé
-	private void btnPanierAppuye() {
+	private void btnPanierAppuyé() {
 		btnPanier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!FenetrePrincipal.panier.isEmpty()) {
