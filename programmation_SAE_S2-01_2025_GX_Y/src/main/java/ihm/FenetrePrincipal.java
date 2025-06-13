@@ -1,5 +1,4 @@
 package ihm;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -29,6 +28,7 @@ import java.text.DecimalFormat;
 
 public class FenetrePrincipal extends JFrame {
 
+	//POUR LANCER L'APPLICATION, SE RENDRE DANS LancementApplication
 	
 	private static final long serialVersionUID = 1L;
 	private Tomates tomates;
@@ -44,32 +44,8 @@ public class FenetrePrincipal extends JFrame {
 	private String toutesTomates = "Toutes les Tomates (63)";
 	private String toutesCouleurs = "Toutes les Couleurs";
 	private DecimalFormat df = new DecimalFormat("0.00");
-
 	public static Panier panier;
-	public static boolean exit;
 	
-	
-	//Fonction qui démarre l'application
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					//Page demandant si on veux reset la base de données
-					FenetreReset fenReset = new FenetreReset();
-					fenReset.setVisible(true);
-					//Initialisation de la base de donnée
-					Tomates tomates = OutilsBaseDonneesTomates.générationBaseDeTomates("./src/main/resources/data/tomates.json");
-					FenetrePrincipal.panier = new Panier();
-					//Initialisation de la fenetre
-					FenetrePrincipal fenPrincipal = new FenetrePrincipal(tomates);
-					fenPrincipal.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	
 	//Préparation de la fenetre
 	public FenetrePrincipal(Tomates tomates) {
@@ -188,7 +164,7 @@ public class FenetrePrincipal extends JFrame {
 		this.actualiserListTomates();
 	}
 
-
+	//Lorsque le bouton conseil est appuyé
 	private void btnConseilAppuyé(JButton btnConseil) {
 		btnConseil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

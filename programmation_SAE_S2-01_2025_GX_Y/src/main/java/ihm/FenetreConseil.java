@@ -35,18 +35,21 @@ public class FenetreConseil extends JDialog {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		
+		//Label de titre
 		JLabel lblTitle = new JLabel("Conseils de culture");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setIcon(new ImageIcon(".\\src\\main\\resources\\images\\Icones\\tomates_resize1.png"));
 		lblTitle.setFont(new Font("Ebrima", Font.BOLD, 25));
 		contentPane.add(lblTitle, BorderLayout.NORTH);
 		
+		//Panel contenant les conseils
 		JPanel panelConseilDate = new JPanel();
 		panelConseilDate.setLayout(new BorderLayout(0,0));
 		panelConseilDate.setBackground(Color.white);
 		panelConseilDate.setBorder(new LineBorder(Color.lightGray, 2));
 		contentPane.add(panelConseilDate);
 		
+		//TextArea possedant les conseils de culture
 		JTextArea textAreaConseils = new JTextArea();
 		textAreaConseils.setFont(new Font("Ebrima", Font.BOLD | Font.ITALIC, 16));
 		textAreaConseils.setOpaque(false);
@@ -61,11 +64,13 @@ public class FenetreConseil extends JDialog {
 		textAreaConseils.setBorder(new EmptyBorder(10, 10, 10, 10));
 		panelConseilDate.add(textAreaConseils, BorderLayout.NORTH);
 		
+		//Scroll pane pour le deuxieme textarea
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBackground(Color.white);
 		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panelConseilDate.add(scrollPane, BorderLayout.CENTER);
 		
+		//TextArea decrivant les conseils de culture
 		JTextArea textAreaDescriptions = new JTextArea();
 		textAreaDescriptions.setEditable(false);
 		textAreaDescriptions.setFont(new Font("Ebrima", Font.PLAIN, 14));
@@ -79,16 +84,20 @@ public class FenetreConseil extends JDialog {
 		textAreaDescriptions.setBorder(new EmptyBorder(10, 10, 10, 10));
 		scrollPane.setViewportView(textAreaDescriptions);
 		
+		//Panel du bas pour le bouton
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
+		//Bouton ok
 		JButton btnOk = new JButton("Ok");
+		//Quand le bouton ok est appuyé
 		btnOkAppuyé(btnOk);
 		btnOk.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel.add(btnOk);
 		
 	}
 
+	//Fonction appelé lorsque le bouton Ok est appuyé
 	private void btnOkAppuyé(JButton btnOk) {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

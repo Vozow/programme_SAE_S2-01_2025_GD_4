@@ -33,6 +33,7 @@ import java.awt.event.ActionEvent;
 
 public class FenetreProduit extends JDialog {
 
+	//POUR LANCER L'APPLICATION, SE RENDRE DANS LancementApplication
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel Pane;

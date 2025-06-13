@@ -42,8 +42,8 @@ public class FenetreCoordonnées extends JDialog {
 	private JRadioButton rdbtnPayementCheque;
 	private JRadioButton rdbtnNewsletterOui;
 	private JRadioButton rdbtnNewsletterNon;
-	
 	private Tomates tomates;
+	
 	
 	public FenetreCoordonnées(Tomates tomates) {
 		this.tomates = tomates;
@@ -88,6 +88,8 @@ public class FenetreCoordonnées extends JDialog {
 		mainPanel.setBackground(Color.white);
 		mainPanel.setBorder(new LineBorder(Color.lightGray, 2));
 
+		//CHAQUE CHAMPS POSSEDENT SON PANEL, JLABEL, ET TEXTFIELD
+		
 		//NOM
 		JPanel panelNom = new JPanel();
 		panelNom.setOpaque(false);
@@ -231,6 +233,7 @@ public class FenetreCoordonnées extends JDialog {
 		textFieldMail.setColumns(10);
 		panelMail.add(textFieldMail);
 		
+		//LES BOUTONS SONT DIVISER PAR GROUPE DE BOUTON (PAIEMENT & NEWSLETTER)
 		
 		//PAYEMENT
 		JPanel panelPayement = new JPanel();
@@ -239,7 +242,6 @@ public class FenetreCoordonnées extends JDialog {
 		panelPayement.setBorder(borderPayement);
 		panelPayement.setOpaque(false);
 		mainPanel.add(panelPayement);
-		
 		
 		rdbtnPayementCarteCredit = new JRadioButton("Carte de Crédit");
 		rdbtnPayementCarteCredit.setFont(new Font("Ebrima", Font.BOLD, 15));
@@ -291,11 +293,13 @@ public class FenetreCoordonnées extends JDialog {
 		JPanel panelBouton = new JPanel();
 		panelPrincipal.add(panelBouton, BorderLayout.SOUTH);
 		
+		//Bouton annuler
 		JButton btnAnnuler = new JButton("Annuler");
 		btnAnnulerAppuyé(btnAnnuler);
 		btnAnnuler.setBackground(SystemColor.activeCaption);
 		panelBouton.add(btnAnnuler);
 		
+		//Bouton confirmer
 		JButton btnValider = new JButton("Valider");
 		btnValiderAppuyé(btnValider);
 		btnValider.setBackground(SystemColor.activeCaption);

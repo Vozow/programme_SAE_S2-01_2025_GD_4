@@ -17,6 +17,9 @@ import modèle.Tomate;
 
 public class TomatesListPainter extends JLabel implements ListCellRenderer<Object> {    
     
+	//CLASS PERMETTANT DE GERER L'AFFICHAGE DE LA LISTE DANS LE FENETRE PRINCIPAL
+	//SERA AFFICHER : IMAGE DE LA TOMATE, NOM DE LA TOMATE ET SA DESCRIPTION
+	
 	private static final long serialVersionUID = 1L;
 	
 	//Variable provenant de la class DefaultListCellRenderer qui s'occupe

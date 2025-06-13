@@ -35,6 +35,7 @@ import java.awt.Component;
 
 public class FenetreFacture extends JDialog {
 	
+	//POUR LANCER L'APPLICATION, SE RENDRE DANS LancementApplication
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

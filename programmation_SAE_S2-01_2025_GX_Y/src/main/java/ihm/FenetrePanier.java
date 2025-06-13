@@ -31,6 +31,7 @@ import java.awt.event.ActionEvent;
 
 public class FenetrePanier extends JDialog {
 
+	//POUR LANCER L'APPLICATION, SE RENDRE DANS LancementApplication
 	
 	private static final long serialVersionUID = 1L;
 	private Tomates tomates;
@@ -181,15 +182,7 @@ public class FenetrePanier extends JDialog {
 		
 		//Bouton valider le panier
 		JButton btnValider = new JButton("Valider le panier");
-		btnValider.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FenetrePanier.this.dispose();
-				FenetrePanier.this.actualiserTableauPanier();
-				FenetrePanier.this.actualiserTotal();
-				FenetreCoordonnées fenCoord = new FenetreCoordonnées(FenetrePanier.this.tomates);
-				fenCoord.setVisible(true);
-			}
-		});
+		btnValiderAppuyé(btnValider);
 		btnValider.setBackground(SystemColor.activeCaption);
 		btnValider.setBorder(new EmptyBorder(10, 10, 10, 10));
 		buttonPanel.add(btnValider);
@@ -203,11 +196,7 @@ public class FenetrePanier extends JDialog {
 
 		//Bouton annuler/continuer les achats
 		JButton btnAnnuler = new JButton("Continuer les achats");
-		btnAnnuler.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FenetrePanier.this.dispose();
-			}
-		});
+		btnAnnulerAppuyé(btnAnnuler);
 		btnAnnuler.setBorder(new EmptyBorder(10, 10, 10, 10));
 		btnAnnuler.setBackground(SystemColor.activeCaption);
 		buttonPanel.add(btnAnnuler);
@@ -218,7 +207,29 @@ public class FenetrePanier extends JDialog {
 		this.actualiserTotal();
 	}
 
+	//Lorsque le bouton annuler est appuyé
+	private void btnAnnulerAppuyé(JButton btnAnnuler) {
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetrePanier.this.dispose();
+			}
+		});
+	}
 
+	//Lorsque le bouton valider est appuyé
+	private void btnValiderAppuyé(JButton btnValider) {
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FenetrePanier.this.dispose();
+				FenetrePanier.this.actualiserTableauPanier();
+				FenetrePanier.this.actualiserTotal();
+				FenetreCoordonnées fenCoord = new FenetreCoordonnées(FenetrePanier.this.tomates);
+				fenCoord.setVisible(true);
+			}
+		});
+	}
+
+	//Lorsque le bouton vider panier est appuyé
 	private void btnViderAppuyé(Tomates tomates, JButton btnVider) {
 		btnVider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -237,7 +248,7 @@ public class FenetrePanier extends JDialog {
 		});
 	}
 
-
+	//Lorsque le bouton supprimer tomate est appuyé
 	private void btnSupprimerAppuyé(JButton btnSupprimer) {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -257,7 +268,7 @@ public class FenetrePanier extends JDialog {
 		});
 	}
 
-
+	//Lorsque le bouton retirer tomate est appuyé
 	private void btnRetirerAppuyé(JButton btnRetirer) {
 		btnRetirer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -284,7 +295,7 @@ public class FenetrePanier extends JDialog {
 		});
 	}
 
-	//Lorsque le bouton Ajouter est appuyé
+	//Lorsque le bouton Ajouter tomate est appuyé
 	private void btnAjouterAppuyé(JButton btnAjouter) {
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -354,7 +365,7 @@ public class FenetrePanier extends JDialog {
 		}
 	}
 	
-	
+	//Actualise le tableau contenant le panier
 	private void actualiserTableauPanier() {
 		this.modeleTable = new DefaultTableModel();
 		this.modeleTable.setColumnIdentifiers(new String[] {
