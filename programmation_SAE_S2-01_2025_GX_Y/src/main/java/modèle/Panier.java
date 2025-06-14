@@ -39,9 +39,9 @@ public class Panier {
 	}
 	
 	
-	public void removeTomate(Tomate tomate, int nb) throws IndexOutOfBoundsException {
-		if(this.getNbDeUnTypeDeTomate(tomate) - nb < 0) throw new IndexOutOfBoundsException("Nombre de tomate a supprimer supérieur au nombre de tomate présent.");
-		if(nb < 0) throw new IndexOutOfBoundsException("Nombre de tomate a supprimer négatif.");
+	public void removeTomate(Tomate tomate, int nb) throws IllegalArgumentException {
+		if(this.getNbDeUnTypeDeTomate(tomate) - nb < 0) throw new IllegalArgumentException("Nombre de tomate a supprimer supérieur au nombre de tomate présent.");
+		if(nb < 0) throw new IllegalArgumentException("Nombre de tomate a supprimer négatif.");
 		for(int i = 0; i < this.listePanier.size(); i++) {
 			if(this.listePanier.get(i) == tomate && nb > 0) {
 				this.listePanier.remove(i);

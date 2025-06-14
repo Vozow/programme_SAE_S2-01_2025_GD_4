@@ -92,7 +92,7 @@ public class PanierTest {
     	assertEquals(nbTomate-nbTomateARetiré, panier.getNbDeUnTypeDeTomate(tomates.getTomates().get(0)));
 	}
 	
-	@Test  (expected = IndexOutOfBoundsException.class)
+	@Test  (expected = IllegalArgumentException.class)
 	public void testRetirerUnNombreDeTomateImpossible() {
 		Panier panier = new Panier();
     	Random random = new Random();

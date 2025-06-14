@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import modèle.Tomates;
+
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -54,10 +57,7 @@ public class FenetreConseil extends JDialog {
 		textAreaConseils.setFont(new Font("Ebrima", Font.BOLD | Font.ITALIC, 16));
 		textAreaConseils.setOpaque(false);
 		textAreaConseils.setEditable(false);
-		textAreaConseils.setText("Conseil de culture \n\n\r" +
-									"Semis : mars-avril \n\n\r" +
-									"Repiquage : après les gelées \n\n\r" +
-									"Récolte : juillet à septembre, voire octobre");
+		textAreaConseils.setText(Tomates.CONSEILS_DE_CULTURE_TITRE);
 		textAreaConseils.setLineWrap(true);
 		textAreaConseils.setWrapStyleWord(true);
 		textAreaConseils.setOpaque(false);
@@ -74,9 +74,7 @@ public class FenetreConseil extends JDialog {
 		JTextArea textAreaDescriptions = new JTextArea();
 		textAreaDescriptions.setEditable(false);
 		textAreaDescriptions.setFont(new Font("Ebrima", Font.PLAIN, 14));
-		textAreaDescriptions.setText("Semis : Démarrez vos semis en petite terrine dès mars / avril (15°/20°)dans du terreau à semis,couvrez vos graines 0.5cm,tassez doucement et maintenez humide.Repqiuez vos semis lorsqu'ils font 5 cm, dans des godets avec du terreau 1/3 de fumier ou du compost, enterrez jusqu'au première feuilles.\n\n\r"
-				+ "Après les Saints de glace, plantez vos pieds de tomates dès qu'ils auront atteint 15 cm, enterrez-les jusqu'aux premières feuilles en pleine terre dans un trou avec du fumier, du compost ou quelques feuilles d'ortie si besoin, installez vos tuteurs espacés de 70cm.Arrosez abondamment les 3 premiers jours , arrêtez les 15 jours suivants puis arrosez régulièrement.\n\n\r"
-				+ "Pensez à pailler ! ainsi vous garderez beaucoup plus facilement l'humidité.\"");
+		textAreaDescriptions.setText(Tomates.CONSEILS_DE_CULTURE);
 		textAreaDescriptions.setLineWrap(true);
 		textAreaDescriptions.setWrapStyleWord(true);
 		textAreaDescriptions.setBackground(Color.white);
